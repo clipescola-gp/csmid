@@ -9,11 +9,10 @@
 body{font-family:Nunito,sans-serif;background:#f0f2f7;min-height:100vh}
 .hd{display:none!important}
 
-/* HEADER */
 .hdr{background:#22367b;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:relative}
 .hdr img{height:36px;object-fit:contain}
 .badge{background:rgba(255,202,38,.15);border:1px solid rgba(255,202,38,.4);color:#ffca26;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
-#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.25);text-decoration:none;cursor:pointer}
+#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.25);cursor:pointer}
 
 /* PUBLIC */
 .hero{background:linear-gradient(135deg,#22367b 0%,#1a2d6b 100%);padding:48px 32px 56px;text-align:center;position:relative;overflow:hidden}
@@ -22,15 +21,26 @@ body{font-family:Nunito,sans-serif;background:#f0f2f7;min-height:100vh}
 .hero h1{color:#fff;font-size:28px;font-weight:800;margin-bottom:8px}
 .hero p{color:rgba(255,255,255,.75);font-size:15px;max-width:480px;margin:0 auto 20px}
 .hero-meta{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:8px 20px;color:#fff;font-size:13px;font-weight:700}
+
 .wrap{max-width:700px;margin:0 auto;padding:28px 16px}
 .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .ttl{font-size:15px;font-weight:800;color:#22367b;margin-bottom:14px}
+
+/* Motivo cards */
+.tc{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:10px;margin-bottom:8px;border:2px solid #e5e7eb;cursor:pointer;user-select:none;transition:all .15s}
+.tc:hover{border-color:#22367b;background:#eff6ff}
+.tc.sel{border-color:#22367b;background:#eff6ff}
+.tc .tn{font-weight:700;font-size:14px;color:#374151}
+.tc.sel .tn{color:#22367b}
+.tc .td{font-size:13px;color:#9ca3af}
+
 label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
 input,select{width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;font-family:inherit;outline:none;color:#111827}
 input:focus,select:focus{border-color:#22367b}
 .btn{padding:11px 22px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;background:#22367b;color:#fff;transition:opacity .15s}
 .btn:hover{opacity:.88}.btn:disabled{opacity:.4;cursor:default}
 .back{padding:10px 20px;border-radius:8px;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;color:#6b7280}
+
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .cc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:500;cursor:default;border:2px solid transparent;user-select:none}
 .av{background:#f0fdf4;color:#166534;cursor:pointer;font-weight:700}.av:hover{background:#dcfce7}
@@ -50,6 +60,7 @@ input:focus,select:focus{border-color:#22367b}
 .meet-row{display:flex;align-items:center;gap:8px}
 .meet-link{flex:1;word-break:break-all;color:#1d4ed8;font-size:13px}
 .copy-btn{flex-shrink:0;padding:6px 14px;border-radius:6px;border:1.5px solid #d3e2f2;background:#fff;color:#22367b;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
+.loading-cal{text-align:center;padding:28px 0;color:#6b7280;font-size:13px}
 
 /* ADMIN */
 .admin-wrap{max-width:940px;margin:0 auto;padding:24px 16px}
@@ -70,59 +81,62 @@ input:focus,select:focus{border-color:#22367b}
 .ics-ok{font-size:11px;color:#166534;font-weight:700}
 .ics-miss{font-size:11px;color:#dc2626;font-weight:700}
 
-/* Modal */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:620px;margin:auto}
 .modal-ttl{font-size:16px;font-weight:800;color:#22367b;margin-bottom:20px}
 
-/* Slot editor por dia */
 .day-block{border:1px solid #e5e7eb;border-radius:9px;margin-bottom:8px;overflow:hidden}
 .day-block-hdr{background:#f8fafc;padding:8px 12px;font-size:12px;font-weight:800;color:#22367b;display:flex;align-items:center;justify-content:space-between}
 .day-block-body{padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:42px}
 .slot-tag{display:inline-flex;align-items:center;gap:5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;color:#1d4ed8}
-.slot-tag button{background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;line-height:1;padding:0;display:flex;align-items:center}
+.slot-tag button{background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;line-height:1;padding:0}
 .slot-tag button:hover{color:#dc2626}
 .slot-add{display:inline-flex;align-items:center;gap:4px}
 .slot-add input{width:72px;padding:4px 8px;border:1.5px solid #d1d5db;border-radius:7px;font-size:12px;font-family:inherit;text-align:center}
 .slot-add input:focus{border-color:#22367b;outline:none}
 .slot-add button{padding:4px 10px;background:#22367b;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
-.slot-add button:hover{opacity:.85}
-.day-block-empty{color:#9ca3af;font-size:12px;font-style:italic}
 
-/* Toast */
 .toast{position:fixed;bottom:20px;right:20px;background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;z-index:300;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-
-/* Login */
 .login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 64px);padding:24px}
 .login-box{background:#fff;border-radius:14px;padding:32px;width:100%;max-width:340px;box-shadow:0 4px 20px rgba(0,0,0,.1);text-align:center}
-
-/* Info box */
 .info-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#78350f;line-height:1.6}
 
-@media(max-width:560px){.sg{grid-template-columns:52px repeat(5,1fr)}.hero{padding:32px 16px 44px}.card,.adm-card,.modal{padding:16px}.tbl td,.tbl th{padding:8px}}
+@media(max-width:560px){.hero{padding:32px 16px 44px}.card,.adm-card,.modal{padding:16px}.tbl td,.tbl th{padding:8px}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <img src="https://i.imgur.com/IVPOWqc.png" alt="ClipEscola" onerror="this.style.display='none'">
   <div class="badge" id="hdr-badge">CS Mid Touch</div>
   <span id="admin-gear" onclick="goAdmin()" title="Retaguarda">⚙</span>
 </div>
 
-<!-- ═══════════ VIEW: PÚBLICO ═══════════ -->
+<!-- ═══ PÚBLICO ═══ -->
 <div id="view-public">
   <div class="hero">
     <div class="hero-tag">Agendamentos ClipEscola</div>
     <h1>CS Mid Touch</h1>
-    <p>Escolha a melhor data e horário para sua reunião de acompanhamento.</p>
+    <p>Agende sua reunião de acompanhamento com o nosso time.</p>
     <div class="hero-meta">🕐 1 hora &nbsp;·&nbsp; 🌎 Horário de Brasília</div>
   </div>
   <div class="wrap">
+
+    <!-- Step 0: Motivo -->
+    <div id="s0" class="card">
+      <div class="ttl">Qual o motivo da reunião?</div>
+      <div id="motivo-list">
+        <div class="tc" data-motivo="Treinamento"><span class="tn">Treinamento</span></div>
+        <div class="tc" data-motivo="Tira-dúvidas"><span class="tn">Tira-dúvidas</span></div>
+        <div class="tc" data-motivo="Alinhamentos"><span class="tn">Alinhamentos</span></div>
+        <div class="tc" data-motivo="Validação de Integração"><span class="tn">Validação de Integração</span></div>
+      </div>
+      <button class="btn" id="btn0" disabled style="margin-top:12px">Próximo →</button>
+    </div>
+
     <!-- Step 1: Calendário -->
-    <div id="s1" class="card">
+    <div id="s1" class="card hd">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
         <div class="ttl" style="margin:0">Escolha a data e horário</div>
         <div class="cnav">
@@ -131,13 +145,14 @@ input:focus,select:focus{border-color:#22367b}
           <button id="next-m">&#8250;</button>
         </div>
       </div>
-      <div class="tz-note">🌎 Todos os horários estão em Brasília (GMT-3)</div>
+      <div class="tz-note">🌎 Todos os horários em Brasília (GMT-3)</div>
       <div id="cal-wrap"></div>
       <div id="tw" class="hd" style="margin-top:16px">
         <div id="tl" style="font-size:13px;font-weight:700;color:#6b7280;margin-bottom:8px"></div>
         <div id="times" style="display:flex;flex-wrap:wrap;gap:4px"></div>
       </div>
-      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;margin-top:16px">
+        <button class="back" id="back1">← Voltar</button>
         <button class="btn" id="btn1" disabled>Próximo →</button>
       </div>
     </div>
@@ -171,10 +186,8 @@ input:focus,select:focus{border-color:#22367b}
   </div>
 </div>
 
-<!-- ═══════════ VIEW: ADMIN ═══════════ -->
+<!-- ═══ ADMIN ═══ -->
 <div id="view-admin" class="hd">
-
-  <!-- Login -->
   <div class="login-wrap" id="admin-login">
     <div class="login-box">
       <div style="font-size:36px;margin-bottom:10px">🔐</div>
@@ -185,12 +198,8 @@ input:focus,select:focus{border-color:#22367b}
       <div id="pw-err" style="color:#dc2626;font-size:12px;margin-top:8px;display:none">Senha incorreta.</div>
     </div>
   </div>
-
-  <!-- Painel -->
   <div id="adm-panel" class="hd">
     <div class="admin-wrap">
-
-      <!-- CSMs -->
       <div class="adm-card">
         <div class="adm-ttl">
           <span>👥 Equipe de CSMs</span>
@@ -198,35 +207,24 @@ input:focus,select:focus{border-color:#22367b}
         </div>
         <div style="overflow-x:auto">
           <table class="tbl">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>ICS</th>
-                <th style="text-align:center">Projetos</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Nome</th><th>E-mail</th><th>ICS</th><th style="text-align:center">Projetos</th><th>Ações</th></tr></thead>
             <tbody id="csm-tbody"></tbody>
           </table>
         </div>
       </div>
-
-      <!-- Info distribuição -->
       <div class="adm-card info-box" style="padding:16px 20px">
-        <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:6px">⚖️ Distribuição Automática de Agendamentos</strong>
-        O sistema sempre encaminha o novo agendamento ao CSM com <strong>menor número de projetos</strong> que tenha disponibilidade no horário escolhido. A cada agendamento confirmado, +1 é somado automaticamente ao contador, equilibrando as agendas ao longo do tempo. Você pode ajustar manualmente o contador a qualquer momento.
+        <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:6px">⚖️ Distribuição Automática</strong>
+        O sistema sempre encaminha ao CSM com <strong>menor número de projetos</strong> que tenha disponibilidade no horário. A cada agendamento confirmado, +1 é somado automaticamente. Ajuste manualmente quando necessário.
       </div>
-
       <div style="display:flex;justify-content:space-between;align-items:center">
         <button class="back" onclick="goPublic()">← Voltar ao site</button>
-        <span style="font-size:11px;color:#9ca3af">As alterações são salvas automaticamente</span>
+        <span style="font-size:11px;color:#9ca3af">Alterações salvas automaticamente</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal Add/Edit CSM -->
+<!-- Modal CSM -->
 <div id="csm-modal" class="modal-bg hd" onclick="bgClose(event)">
   <div class="modal">
     <div class="modal-ttl" id="modal-ttl">Adicionar CSM</div>
@@ -238,7 +236,7 @@ input:focus,select:focus{border-color:#22367b}
         <input id="m-ics" placeholder="https://calendar.google.com/calendar/ical/...">
         <div style="font-size:11px;color:#6b7280;margin-top:4px">Agenda → Configurações → Endereço ICS (privado)</div>
       </div>
-      <div><label>Projetos Atuais</label><input id="m-proj" type="number" min="0" value="0" placeholder="0"></div>
+      <div><label>Projetos Atuais</label><input id="m-proj" type="number" min="0" value="0"></div>
     </div>
     <div style="margin-bottom:20px">
       <label style="margin-bottom:10px">Horários Disponíveis</label>
@@ -255,93 +253,66 @@ input:focus,select:focus{border-color:#22367b}
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════
-// CONFIGURAÇÕES – ajuste antes de publicar
-// ═══════════════════════════════════════════
-var WA = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
-var WV = "https://n8n.clipescola.com.br/webhook/verificar-csm";
-var SHEET = "1rwNkmBUlOjfUHbIbHpyHiLfou8tYyJfQbZtz0dwjgwA";
+// ═══ CONFIG ═══════════════════════════════
+var WA   = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
+var WV   = "https://n8n.clipescola.com.br/webhook/verificar-csm";
+var SHEET= "1rwNkmBUlOjfUHbIbHpyHiLfou8tYyJfQbZtz0dwjgwA";
 var MEETING_TYPE = "CS Mid Touch";
-var DURATION = 60; // minutos
-var ADMIN_PW = "clip2025"; // ← altere a senha
+var DURATION = 60;
+var ADMIN_PW = "clip2025";
 var STORAGE_KEY = "csm-mid-touch-config";
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════
 
-var ALL_TIMES = ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00"];
-var WEEKDAYS = [{n:"Seg",d:1},{n:"Ter",d:2},{n:"Qua",d:3},{n:"Qui",d:4},{n:"Sex",d:5}];
-var MONTHS = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-var DS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-var DL = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+var WEEKDAYS=[{n:"Seg",d:1},{n:"Ter",d:2},{n:"Qua",d:3},{n:"Qui",d:4},{n:"Sex",d:5}];
+var MONTHS=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+var DS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+var DL=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
 
 // STATE
-var cfg = { csms: [] };
-var cy = new Date().getFullYear(), cm = new Date().getMonth();
-var selDate = '', selTime = '';
-var editId = null;
+var cfg={csms:[]};
+var cy=new Date().getFullYear(), cm=new Date().getMonth();
+var selDate='', selTime='', selMotivo='';
+var currentFreeDays={};
+var editId=null, slotState={};
 
-// ── UTILS ──────────────────────────────────
+// ── UTILS ──
 function uid(){return 'csm'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
-function pad(n){return ('0'+n).slice(-2);}
+function pad(n){return('0'+n).slice(-2);}
 function addMin(t,m){var p=t.split(':'),v=+p[0]*60+ +p[1]+m;return pad(Math.floor(v/60))+':'+pad(v%60);}
-function toast(msg,dur){
-  var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
-  setTimeout(function(){el.classList.remove('show');},dur||2500);
-}
+function toast(msg){var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2500);}
 function showEl(id){document.getElementById(id).classList.remove('hd');}
 function hideEl(id){document.getElementById(id).classList.add('hd');}
 
-// ── STORAGE ────────────────────────────────
+// ── STORAGE ──
 async function loadCfg(){
-  try{
-    var r = await window.storage.get(STORAGE_KEY);
-    if(r && r.value){ cfg = JSON.parse(r.value); return; }
-  }catch(e){}
-  // Defaults
-  cfg = { csms:[
-    {id:uid(),name:"Davi Morais",email:"davi.clipescola@gmail.com",ics:"",projects:0,
-     slots:[{day:1,time:"09:00"},{day:1,time:"10:00"},{day:3,time:"09:00"},{day:3,time:"10:00"},{day:5,time:"09:00"},{day:5,time:"10:00"}]},
-    {id:uid(),name:"Pollyanna",email:"pollyanna.clipescola@gmail.com",ics:"",projects:0,
-     slots:[{day:2,time:"09:00"},{day:2,time:"14:00"},{day:4,time:"09:00"},{day:4,time:"14:00"}]},
-    {id:uid(),name:"Marina Landucha",email:"marinalanducha.clipescola@gmail.com",ics:"",projects:0,
-     slots:[{day:1,time:"14:00"},{day:2,time:"11:00"},{day:3,time:"14:00"},{day:5,time:"11:00"}]}
+  try{var r=await window.storage.get(STORAGE_KEY);if(r&&r.value){cfg=JSON.parse(r.value);return;}}catch(e){}
+  cfg={csms:[
+    {id:uid(),name:"Davi Morais",email:"davi.clipescola@gmail.com",ics:"",projects:0,slots:[{day:1,time:"09:00"},{day:3,time:"09:00"},{day:5,time:"09:00"}]},
+    {id:uid(),name:"Pollyanna",email:"pollyanna.clipescola@gmail.com",ics:"",projects:0,slots:[{day:2,time:"09:00"},{day:4,time:"14:00"}]},
+    {id:uid(),name:"Marina Landucha",email:"marinalanducha.clipescola@gmail.com",ics:"",projects:0,slots:[{day:1,time:"14:00"},{day:3,time:"14:00"}]}
   ]};
 }
 async function saveCfg(){
-  try{ await window.storage.set(STORAGE_KEY, JSON.stringify(cfg)); }
-  catch(e){ console.warn('storage err',e); }
+  try{await window.storage.set(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}
 }
 
-// ── VIEW ROUTING ───────────────────────────
-function goAdmin(){
-  hideEl('view-public'); showEl('view-admin');
-  document.getElementById('hdr-badge').textContent='Retaguarda';
-  hideEl('admin-gear');
-}
-function goPublic(){
-  hideEl('view-admin'); showEl('view-public');
-  document.getElementById('hdr-badge').textContent='CS Mid Touch';
-  showEl('admin-gear');
-  location.hash='';
-}
+// ── ROUTING ──
+function goAdmin(){hideEl('view-public');showEl('view-admin');document.getElementById('hdr-badge').textContent='Retaguarda';hideEl('admin-gear');}
+function goPublic(){hideEl('view-admin');showEl('view-public');document.getElementById('hdr-badge').textContent='CS Mid Touch';showEl('admin-gear');location.hash='';}
+function showPub(id){['s0','s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});document.getElementById(id).classList.remove('hd');}
 
-// ── ADMIN AUTH ─────────────────────────────
+// ── ADMIN AUTH ──
 function checkPw(){
-  if(document.getElementById('adm-pw').value === ADMIN_PW){
-    hideEl('admin-login'); showEl('adm-panel'); renderTable();
-  } else {
-    document.getElementById('pw-err').style.display='block';
-  }
+  if(document.getElementById('adm-pw').value===ADMIN_PW){hideEl('admin-login');showEl('adm-panel');renderTable();}
+  else document.getElementById('pw-err').style.display='block';
 }
 
-// ── ADMIN TABLE ────────────────────────────
+// ── ADMIN TABLE ──
 function renderTable(){
-  var sorted = [...cfg.csms].sort(function(a,b){return a.projects - b.projects;});
-  var tb = document.getElementById('csm-tbody');
-  if(!sorted.length){
-    tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Nenhum CSM cadastrado. Clique em "+ Adicionar CSM".</td></tr>';
-    return;
-  }
-  tb.innerHTML = sorted.map(function(c,i){
+  var sorted=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
+  var tb=document.getElementById('csm-tbody');
+  if(!sorted.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Nenhum CSM cadastrado.</td></tr>';return;}
+  tb.innerHTML=sorted.map(function(c,i){
     return '<tr>'
     +'<td><strong>'+c.name+'</strong>'+(i===0?'<span class="next-badge">Próximo</span>':'')+'</td>'
     +'<td style="color:#6b7280;font-size:12px">'+c.email+'</td>'
@@ -354,284 +325,186 @@ function renderTable(){
     +'<td style="display:flex;gap:6px;flex-wrap:wrap">'
       +'<button class="btn-sm btn-primary" onclick="openModalEdit(\''+c.id+'\')">Editar</button>'
       +'<button class="btn-sm btn-danger" onclick="delCSM(\''+c.id+'\')">Excluir</button>'
-    +'</td>'
-    +'</tr>';
+    +'</td>'+'</tr>';
   }).join('');
 }
+function adjProj(id,delta){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+delta);saveCfg();renderTable();}}
+function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});saveCfg();renderTable();toast('CSM removido.');}
 
-function adjProj(id, delta){
-  var c = cfg.csms.find(function(x){return x.id===id;});
-  if(c){ c.projects = Math.max(0, c.projects + delta); saveCfg(); renderTable(); }
-}
-function delCSM(id){
-  if(!confirm('Excluir este CSM?')) return;
-  cfg.csms = cfg.csms.filter(function(x){return x.id!==id;});
-  saveCfg(); renderTable(); toast('CSM removido.');
-}
-
-// ── SLOT GRID ──────────────────────────────
-// Slot state por dia: { 1: ["09:00","10:30",...], 2: [...], ... }
-var slotState = {};
-
+// ── SLOT EDITOR ──
 function buildSlotGrid(existing){
-  existing = existing || [];
-  // Monta estado inicial
-  slotState = {};
-  WEEKDAYS.forEach(function(d){ slotState[d.d] = []; });
-  existing.forEach(function(s){
-    if(slotState[s.day] && !slotState[s.day].includes(s.time))
-      slotState[s.day].push(s.time);
-  });
-  WEEKDAYS.forEach(function(d){ slotState[d.d].sort(); });
+  existing=existing||[];
+  slotState={};
+  WEEKDAYS.forEach(function(d){slotState[d.d]=[];});
+  existing.forEach(function(s){if(slotState[s.day]&&!slotState[s.day].includes(s.time))slotState[s.day].push(s.time);});
+  WEEKDAYS.forEach(function(d){slotState[d.d].sort();});
   renderSlotEditor();
 }
-
 function renderSlotEditor(){
-  var wrap = document.getElementById('sg-wrap');
-  wrap.innerHTML = WEEKDAYS.map(function(d){
+  var wrap=document.getElementById('sg-wrap');
+  wrap.innerHTML=WEEKDAYS.map(function(d){
     return '<div class="day-block" id="db-'+d.d+'">'
       +'<div class="day-block-hdr"><span>'+d.n+'</span>'
       +'<span style="font-size:10px;color:#9ca3af;font-weight:600">'+(slotState[d.d].length||'nenhum')+' horário'+(slotState[d.d].length!==1?'s':'')+'</span></div>'
       +'<div class="day-block-body" id="dbb-'+d.d+'"></div>'
       +'</div>';
   }).join('');
-  WEEKDAYS.forEach(function(d){ renderDaySlots(d.d); });
+  WEEKDAYS.forEach(function(d){renderDaySlots(d.d);});
 }
-
 function renderDaySlots(dow){
-  var body = document.getElementById('dbb-'+dow);
-  var times = slotState[dow] || [];
-  var html = times.map(function(t){
-    return '<span class="slot-tag">'+t
-      +'<button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button>'
-      +'</span>';
-  }).join('');
-  html += '<span class="slot-add">'
-    +'<input type="text" id="si-'+dow+'" placeholder="09:30" maxlength="5"'
-    +' onkeydown="if(event.key===\'Enter\'){event.preventDefault();addSlot('+dow+');}">'
-    +'<button type="button" onclick="addSlot('+dow+')">+</button>'
-    +'</span>';
-  body.innerHTML = html;
-  // auto-format ao digitar
-  var inp = document.getElementById('si-'+dow);
-  if(inp) inp.addEventListener('input', function(){
-    var v = this.value.replace(/[^0-9:]/g,'');
-    if(v.length===2 && !v.includes(':')) v += ':';
-    this.value = v;
-  });
-  // Atualiza contador no header
-  var hdr = document.querySelector('#db-'+dow+' .day-block-hdr span:last-child');
-  if(hdr) hdr.textContent = (times.length||'nenhum')+' horário'+(times.length!==1?'s':'');
+  var body=document.getElementById('dbb-'+dow);
+  var times=slotState[dow]||[];
+  var html=times.map(function(t){return '<span class="slot-tag">'+t+'<button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button></span>';}).join('');
+  html+='<span class="slot-add"><input type="text" id="si-'+dow+'" placeholder="09:30" maxlength="5" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addSlot('+dow+');}"><button type="button" onclick="addSlot('+dow+')">+</button></span>';
+  body.innerHTML=html;
+  var inp=document.getElementById('si-'+dow);
+  if(inp)inp.addEventListener('input',function(){var v=this.value.replace(/[^0-9:]/g,'');if(v.length===2&&!v.includes(':'))v+=':';this.value=v;});
+  var hdr=document.querySelector('#db-'+dow+' .day-block-hdr span:last-child');
+  if(hdr)hdr.textContent=(times.length||'nenhum')+' horário'+(times.length!==1?'s':'');
 }
-
 function addSlot(dow){
-  var inp = document.getElementById('si-'+dow);
-  var val = (inp.value||'').trim();
-  // Aceita "930" → "09:30", "9:30" → "09:30", "09:30" ok
-  val = val.replace(/[^0-9:]/g,'');
-  if(!val.includes(':') && val.length>=3){
-    var h = val.slice(0,-2), m = val.slice(-2);
-    val = pad(+h)+':'+m;
-  }
-  if(!/^\d{2}:\d{2}$/.test(val)){
-    inp.style.borderColor='#dc2626'; inp.focus(); return;
-  }
-  var h=+val.split(':')[0], m=+val.split(':')[1];
-  if(h>23||m>59){ inp.style.borderColor='#dc2626'; return; }
-  val = pad(h)+':'+pad(m);
+  var inp=document.getElementById('si-'+dow);
+  var val=(inp.value||'').trim().replace(/[^0-9:]/g,'');
+  if(!val.includes(':')&&val.length>=3){val=pad(+val.slice(0,-2))+':'+val.slice(-2);}
+  if(!/^\d{2}:\d{2}$/.test(val)||+val.split(':')[0]>23||+val.split(':')[1]>59){inp.style.borderColor='#dc2626';inp.focus();return;}
+  val=pad(+val.split(':')[0])+':'+pad(+val.split(':')[1]);
   inp.style.borderColor='';
-  if(!slotState[dow].includes(val)){
-    slotState[dow].push(val);
-    slotState[dow].sort();
-  }
-  inp.value='';
-  renderDaySlots(dow);
-  inp.focus();
+  if(!slotState[dow].includes(val)){slotState[dow].push(val);slotState[dow].sort();}
+  inp.value='';renderDaySlots(dow);inp.focus();
 }
+function removeSlot(dow,time){slotState[dow]=(slotState[dow]||[]).filter(function(t){return t!==time;});renderDaySlots(dow);}
+function readSlots(){var out=[];WEEKDAYS.forEach(function(d){(slotState[d.d]||[]).forEach(function(t){out.push({day:d.d,time:t});});});return out;}
 
-function removeSlot(dow, time){
-  slotState[dow] = (slotState[dow]||[]).filter(function(t){return t!==time;});
-  renderDaySlots(dow);
-}
-
-function readSlots(){
-  var out = [];
-  WEEKDAYS.forEach(function(d){
-    (slotState[d.d]||[]).forEach(function(t){ out.push({day:d.d, time:t}); });
-  });
-  return out;
-}
-
-// ── MODAL ──────────────────────────────────
-function openModalAdd(){
-  editId=null;
-  document.getElementById('modal-ttl').textContent='Adicionar CSM';
-  document.getElementById('m-name').value='';
-  document.getElementById('m-email').value='';
-  document.getElementById('m-ics').value='';
-  document.getElementById('m-proj').value='0';
-  document.getElementById('modal-err').style.display='none';
-  buildSlotGrid([]);
-  showEl('csm-modal');
-}
-function openModalEdit(id){
-  var c = cfg.csms.find(function(x){return x.id===id;});
-  if(!c) return;
-  editId = id;
-  document.getElementById('modal-ttl').textContent='Editar CSM – '+c.name;
-  document.getElementById('m-name').value=c.name;
-  document.getElementById('m-email').value=c.email;
-  document.getElementById('m-ics').value=c.ics||'';
-  document.getElementById('m-proj').value=c.projects||0;
-  document.getElementById('modal-err').style.display='none';
-  buildSlotGrid(c.slots||[]);
-  showEl('csm-modal');
-}
-function closeModal(){ hideEl('csm-modal'); editId=null; }
-function bgClose(e){ if(e.target.id==='csm-modal') closeModal(); }
-
+// ── MODAL ──
+function openModalAdd(){editId=null;document.getElementById('modal-ttl').textContent='Adicionar CSM';['m-name','m-email','m-ics'].forEach(function(i){document.getElementById(i).value='';});document.getElementById('m-proj').value='0';document.getElementById('modal-err').style.display='none';buildSlotGrid([]);showEl('csm-modal');}
+function openModalEdit(id){var c=cfg.csms.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('modal-ttl').textContent='Editar CSM – '+c.name;document.getElementById('m-name').value=c.name;document.getElementById('m-email').value=c.email;document.getElementById('m-ics').value=c.ics||'';document.getElementById('m-proj').value=c.projects||0;document.getElementById('modal-err').style.display='none';buildSlotGrid(c.slots||[]);showEl('csm-modal');}
+function closeModal(){hideEl('csm-modal');editId=null;}
+function bgClose(e){if(e.target.id==='csm-modal')closeModal();}
 function saveCSM(){
-  var name = document.getElementById('m-name').value.trim();
-  var email = document.getElementById('m-email').value.trim();
-  var ics = document.getElementById('m-ics').value.trim();
-  var proj = Math.max(0, +document.getElementById('m-proj').value||0);
-  var slots = readSlots();
-  var merr = document.getElementById('modal-err');
-  if(!name||!email){ merr.textContent='Nome e e-mail são obrigatórios.'; merr.style.display='block'; return; }
+  var name=document.getElementById('m-name').value.trim();
+  var email=document.getElementById('m-email').value.trim();
+  var ics=document.getElementById('m-ics').value.trim();
+  var proj=Math.max(0,+document.getElementById('m-proj').value||0);
+  var slots=readSlots();
+  var merr=document.getElementById('modal-err');
+  if(!name||!email){merr.textContent='Nome e e-mail são obrigatórios.';merr.style.display='block';return;}
   merr.style.display='none';
-  if(editId){
-    var c = cfg.csms.find(function(x){return x.id===editId;});
-    if(c){ c.name=name; c.email=email; c.ics=ics; c.projects=proj; c.slots=slots; }
-  } else {
-    cfg.csms.push({id:uid(),name:name,email:email,ics:ics,projects:proj,slots:slots});
-  }
-  saveCfg(); renderTable(); closeModal();
-  toast(editId?'CSM atualizado!':'CSM adicionado!');
+  if(editId){var c=cfg.csms.find(function(x){return x.id===editId;});if(c){c.name=name;c.email=email;c.ics=ics;c.projects=proj;c.slots=slots;}}
+  else cfg.csms.push({id:uid(),name:name,email:email,ics:ics,projects:proj,slots:slots});
+  saveCfg();renderTable();closeModal();toast(editId?'CSM atualizado!':'CSM adicionado!');
 }
 
-// ── PUBLIC: CALENDAR ───────────────────────
+// ── UNION MAP ──
 function unionMap(){
-  // { dow: { time: true } }
   var m={};
-  cfg.csms.forEach(function(c){
-    (c.slots||[]).forEach(function(s){
-      if(!m[s.day]) m[s.day]={};
-      m[s.day][s.time]=true;
-    });
-  });
+  cfg.csms.forEach(function(c){(c.slots||[]).forEach(function(s){if(!m[s.day])m[s.day]={};m[s.day][s.time]=true;});});
   return m;
 }
 
-function renderCal(){
-  document.getElementById('cal-lbl').textContent =
-    MONTHS[cm].charAt(0).toUpperCase()+MONTHS[cm].slice(1)+' '+cy;
+// ── CALENDAR: verifica ICS por dia antes de colorir ──
+async function checkAndRenderMonth(){
+  document.getElementById('cal-lbl').textContent=MONTHS[cm].charAt(0).toUpperCase()+MONTHS[cm].slice(1)+' '+cy;
+  document.getElementById('cal-wrap').innerHTML="<div class='loading-cal'>⏳ Verificando disponibilidade...</div>";
+  hideEl('tw'); selDate=''; selTime=''; document.getElementById('btn1').disabled=true;
+
+  var minDate=new Date(Date.now()+48*3600*1000); minDate.setHours(0,0,0,0);
+  var dim=new Date(cy,cm+1,0).getDate();
+  var promises=[];
+
+  for(var d=1;d<=dim;d++){
+    var dt=new Date(cy,cm,d);
+    if(dt<minDate) continue;
+    var dow=dt.getDay();
+    var iso=cy+'-'+pad(cm+1)+'-'+pad(d);
+    var csmsNoDia=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow;});});
+    if(!csmsNoDia.length) continue;
+
+    (function(iso2,dow2,csms2){
+      var dayChecks=csms2.map(function(csm){
+        var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow2;});
+        if(!csm.ics) return Promise.resolve(true);
+        return fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso2,duration:DURATION,slots:slotsCSM,slaHours:0})})
+          .then(function(r){return r.json();})
+          .then(function(data){return(data.slots||[]).length>0;})
+          .catch(function(){return true;});
+      });
+      promises.push(Promise.all(dayChecks).then(function(res){return{iso:iso2,free:res.some(function(f){return f;})};}));
+    })(iso,dow,csmsNoDia);
+  }
+
+  var results=await Promise.all(promises);
+  var fd={};
+  results.forEach(function(r){if(r.free)fd[r.iso]=true;});
+  currentFreeDays=fd;
+  renderCal(fd);
+}
+
+function renderCal(fd){
   var first=new Date(cy,cm,1).getDay();
   var days=new Date(cy,cm+1,0).getDate();
-  var minDate=new Date(Date.now()+48*3600*1000); minDate.setHours(0,0,0,0);
-  var umap=unionMap();
   var grid=document.createElement('div'); grid.className='cal';
-  DS.forEach(function(d){
-    var h=document.createElement('div');
-    h.style.cssText='text-align:center;font-size:11px;font-weight:700;color:#6b7280;padding:4px 0';
-    h.textContent=d; grid.appendChild(h);
-  });
+  DS.forEach(function(d){var h=document.createElement('div');h.style.cssText='text-align:center;font-size:11px;font-weight:700;color:#6b7280;padding:4px 0';h.textContent=d;grid.appendChild(h);});
   for(var i=0;i<first;i++) grid.appendChild(document.createElement('div'));
   for(var d=1;d<=days;d++){
-    var dt=new Date(cy,cm,d);
     var iso=cy+'-'+pad(cm+1)+'-'+pad(d);
-    var dow=dt.getDay();
-    var avail = dt>=minDate && umap[dow] && Object.keys(umap[dow]).length>0;
-    var isSel = iso===selDate;
+    var dt=new Date(cy,cm,d);
+    var avail=fd[iso]===true;
+    var isSel=iso===selDate;
     var cell=document.createElement('div');
     cell.className='cc'+(isSel?' sl':avail?' av':' em');
     cell.textContent=d;
-    if(avail)(function(i2,dw){
-      cell.addEventListener('click',function(){pickDate(i2,dw);});
-    })(iso,dow);
+    if(avail)(function(i2,dw){cell.addEventListener('click',function(){pickDate(i2,dw);});})(iso,dt.getDay());
     grid.appendChild(cell);
   }
   var w=document.getElementById('cal-wrap'); w.innerHTML=''; w.appendChild(grid);
 }
 
+// ── PICK DATE: mostra só horários livres ──
 async function pickDate(iso,dow){
-  selDate=iso; selTime='';
-  document.getElementById('btn1').disabled=true;
-  renderCal();
+  selDate=iso; selTime=''; document.getElementById('btn1').disabled=true;
+  renderCal(currentFreeDays);
   showEl('tw');
-
   var dt=new Date(iso+'T12:00:00');
-  document.getElementById('tl').textContent=
-    'Horários – '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
+  document.getElementById('tl').textContent='Horários – '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
   var tc=document.getElementById('times');
   tc.innerHTML='<span style="color:#6b7280;font-size:13px">⏳ Verificando agenda...</span>';
 
-  // CSMs que têm slots configurados neste dia
-  var csmsDoDia=cfg.csms.filter(function(c){
-    return (c.slots||[]).some(function(s){return s.day===dow;});
-  });
-
-  // Checa ICS de cada CSM em paralelo e coleta horários livres
+  var csmsNoDia=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow;});});
   var livresSet={};
-  await Promise.all(csmsDoDia.map(async function(csm){
-    var slotsDoCSM=(csm.slots||[]).filter(function(s){return s.day===dow;});
-    if(!csm.ics){
-      // Sem ICS configurado → trata todos os slots como livres
-      slotsDoCSM.forEach(function(s){livresSet[s.time]=true;});
-      return;
-    }
+  await Promise.all(csmsNoDia.map(async function(csm){
+    var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow;});
+    if(!csm.ics){slotsCSM.forEach(function(s){livresSet[s.time]=true;});return;}
     try{
-      var r=await fetch(WV,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          csmEmail:csm.email,
-          icsUrl:csm.ics,
-          date:iso,
-          duration:DURATION,
-          slots:slotsDoCSM,
-          slaHours:0
-        })
-      });
+      var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso,duration:DURATION,slots:slotsCSM,slaHours:0})});
       var data=await r.json();
       (data.slots||[]).forEach(function(s){livresSet[s.time]=true;});
-    }catch(e){
-      // Erro na verificação → exibe os slots (fallback seguro)
-      slotsDoCSM.forEach(function(s){livresSet[s.time]=true;});
-    }
+    }catch(e){slotsCSM.forEach(function(s){livresSet[s.time]=true;});}
   }));
 
   var livres=Object.keys(livresSet).sort();
   tc.innerHTML='';
-
-  if(!livres.length){
-    tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário disponível nesta data. Escolha outra.</span>';
-    return;
-  }
+  if(!livres.length){tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário disponível. Escolha outra data.</span>';return;}
   livres.forEach(function(t){
     var b=document.createElement('div'); b.className='ts'; b.dataset.time=t;
     b.innerHTML=t+' <span style="font-size:11px;opacity:.7">até '+addMin(t,DURATION)+'</span>';
     b.addEventListener('click',function(){
       document.querySelectorAll('.ts').forEach(function(x){x.classList.remove('sel');});
-      this.classList.add('sel'); selTime=this.dataset.time;
-      document.getElementById('btn1').disabled=false;
+      this.classList.add('sel'); selTime=this.dataset.time; document.getElementById('btn1').disabled=false;
     });
     tc.appendChild(b);
   });
 }
 
-// ── AUTO-ASSIGN CSM ────────────────────────
-function assignCSM(dow, time){
-  // CSMs with this slot configured
-  var avail = cfg.csms.filter(function(c){
-    return (c.slots||[]).some(function(s){return s.day===dow && s.time===time;});
-  });
-  if(!avail.length) avail = [...cfg.csms]; // fallback
-  // Sort by project count ascending (lowest first)
-  avail.sort(function(a,b){return a.projects - b.projects;});
-  return avail[0];
+// ── ASSIGN CSM ──
+function assignCSM(dow,time){
+  var avail=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow&&s.time===time;});});
+  if(!avail.length) avail=[...cfg.csms];
+  return avail.sort(function(a,b){return a.projects-b.projects;})[0];
 }
 
-// ── PUBLIC SUBMIT ──────────────────────────
+// ── CONFIRM ──
 async function confirmar(){
   var s=document.getElementById('fi-school').value.trim();
   var c=document.getElementById('fi-contact').value.trim();
@@ -639,114 +512,92 @@ async function confirmar(){
   var p=document.getElementById('fi-phone').value.trim();
   var g=document.getElementById('fi-guests').value.trim();
   var er=document.getElementById('ferr');
-  if(!s||!c||!e||!p){ er.style.display='block'; return; }
+  if(!s||!c||!e||!p){er.style.display='block';return;}
   er.style.display='none';
   var btn=document.getElementById('btn2'); btn.disabled=true; btn.textContent='Verificando disponibilidade...';
-
   var dt=new Date(selDate+'T12:00:00');
   var dow=dt.getDay();
-
-  // Monta lista de candidatos ordenada por projetos (menor primeiro),
-  // filtrando apenas quem tem esse slot configurado. Fallback: todos.
   var candidates=cfg.csms
-    .filter(function(x){ return (x.slots||[]).some(function(s){ return s.day===dow&&s.time===selTime; }); })
-    .sort(function(a,b){ return a.projects-b.projects; })
-    .map(function(x){ return {id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects}; });
+    .filter(function(x){return(x.slots||[]).some(function(sl){return sl.day===dow&&sl.time===selTime;});})
+    .sort(function(a,b){return a.projects-b.projects;})
+    .map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
   if(!candidates.length)
     candidates=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;})
-      .map(function(x){return {id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
+      .map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
 
   var payload={
     date:selDate, time:selTime, endTime:addMin(selTime,DURATION),
+    motivo:selMotivo,
     meetingType:MEETING_TYPE, duration:DURATION,
     timezone:"America/Sao_Paulo",
     timezoneLabel:"Horário de Brasília (GMT-3)",
-    timezoneNote:"Horário fixado em America/Sao_Paulo independente da localização do cliente.",
     sheetId:SHEET,
     school:s, contact:c, email:e, phone:p, guests:g,
     csmCandidates:candidates
   };
-
   try{
     btn.textContent='Agendando...';
     var r=await fetch(WA,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     var resp=await r.json().catch(function(){return{};});
-
-    // n8n retorna status:'unavailable' se nenhum CSM tiver agenda livre
-    if(resp.status==='unavailable'){
-      er.textContent='Nenhum CSM disponível neste horário. Por favor, escolha outro horário ou data.';
-      er.style.display='block'; btn.disabled=false; btn.textContent='Confirmar agendamento'; return;
-    }
-
-    // Incrementa o contador do CSM atribuído (confirmado pelo n8n)
-    if(resp.csmId){
-      var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});
-      if(idx>=0){ cfg.csms[idx].projects++; await saveCfg(); }
-    }
-
+    if(resp.status==='unavailable'){er.textContent='Nenhum CSM disponível neste horário. Por favor, escolha outro.';er.style.display='block';btn.disabled=false;btn.textContent='Confirmar agendamento';return;}
+    if(resp.csmId){var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});if(idx>=0){cfg.csms[idx].projects++;await saveCfg();}}
     showPub('succ');
     var csmName=resp.csm||'seu CSM';
     var ml=resp.meetLink;
     var meetEl='';
-    if(ml){
-      meetEl="<div class='meet-box'><div class='meet-box-ttl'>🎥 Link da reunião</div>"
-        +"<div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span>"
-        +"<button class='copy-btn' id='copy-btn'>Copiar</button></div></div>";
-    }
+    if(ml){meetEl="<div class='meet-box'><div class='meet-box-ttl'>🎥 Link da reunião</div><div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span><button class='copy-btn' id='copy-btn'>Copiar</button></div></div>";}
     document.getElementById('sd').innerHTML=
-      '<div style="margin-bottom:4px"><strong>CS Mid Touch</strong> com <strong>'+csmName+'</strong></div>'
+      '<div style="margin-bottom:4px"><strong>Reunião de '+selMotivo+'</strong> com <strong>'+csmName+'</strong></div>'
       +'<div style="color:#6b7280">📅 '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+'</div>'
       +'<div style="color:#6b7280">🕐 '+selTime+' – '+addMin(selTime,DURATION)
-      +' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'
-      +meetEl;
+      +' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'+meetEl;
     var cb=document.getElementById('copy-btn');
-    if(cb&&ml) cb.addEventListener('click',function(){
-      navigator.clipboard.writeText(ml).then(function(){
-        cb.textContent='Copiado!'; setTimeout(function(){cb.textContent='Copiar';},2000);
-      });
-    });
+    if(cb&&ml)cb.addEventListener('click',function(){navigator.clipboard.writeText(ml).then(function(){cb.textContent='Copiado!';setTimeout(function(){cb.textContent='Copiar';},2000);});});
   }catch(err){
-    er.textContent='Erro ao enviar. Verifique sua conexão e tente novamente.';
-    er.style.display='block'; btn.disabled=false; btn.textContent='Confirmar agendamento';
+    er.textContent='Erro ao enviar. Tente novamente.';er.style.display='block';btn.disabled=false;btn.textContent='Confirmar agendamento';
   }
 }
 
-function showPub(id){
-  ['s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});
-  document.getElementById(id).classList.remove('hd');
-}
-
-// ── INIT ───────────────────────────────────
+// ── INIT ──
 document.addEventListener('DOMContentLoaded',async function(){
   await loadCfg();
-  renderCal();
 
-  // Nav público
+  // Motivo selection
+  document.querySelectorAll('#motivo-list .tc').forEach(function(el){
+    el.addEventListener('click',function(){
+      document.querySelectorAll('#motivo-list .tc').forEach(function(x){x.classList.remove('sel');});
+      el.classList.add('sel');
+      selMotivo=el.dataset.motivo;
+      document.getElementById('btn0').disabled=false;
+    });
+  });
+
+  document.getElementById('btn0').addEventListener('click',function(){
+    if(this.disabled) return;
+    showPub('s1');
+    checkAndRenderMonth();
+  });
+
+  document.getElementById('back1').addEventListener('click',function(){
+    showPub('s0');
+    selDate=''; selTime='';
+  });
+
   document.getElementById('btn1').addEventListener('click',function(){
     if(this.disabled) return;
     showPub('s2');
     var dt=new Date(selDate+'T12:00:00');
     document.getElementById('ibar').textContent=
-      '📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]
-      +' de '+cy+' às '+selTime+' (Horário de Brasília)';
+      '📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy
+      +' às '+selTime+' · Reunião de '+selMotivo+' (Horário de Brasília)';
   });
+
   document.getElementById('btn2').addEventListener('click',confirmar);
   document.getElementById('back2').addEventListener('click',function(){showPub('s1');});
-  document.getElementById('prev-m').addEventListener('click',function(){
-    cm--; if(cm<0){cm=11;cy--;} renderCal();
-    hideEl('tw'); selDate=''; selTime=''; document.getElementById('btn1').disabled=true;
-  });
-  document.getElementById('next-m').addEventListener('click',function(){
-    cm++; if(cm>11){cm=0;cy++;} renderCal();
-    hideEl('tw'); selDate=''; selTime=''; document.getElementById('btn1').disabled=true;
-  });
+  document.getElementById('prev-m').addEventListener('click',function(){cm--;if(cm<0){cm=11;cy--;}checkAndRenderMonth();});
+  document.getElementById('next-m').addEventListener('click',function(){cm++;if(cm>11){cm=0;cy++;}checkAndRenderMonth();});
   document.getElementById('succ-btn').addEventListener('click',function(){location.reload();});
-
-  // Admin: enter key no campo de senha
-  document.getElementById('adm-pw').addEventListener('keydown',function(e){
-    if(e.key==='Enter') checkPw();
-  });
-
+  document.getElementById('adm-pw').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
   if(location.hash==='#admin') goAdmin();
 });
 </script>
