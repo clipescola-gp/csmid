@@ -293,7 +293,16 @@ async function loadCfg(){
   ]};
 }
 async function saveCfg(){
-  try{await window.storage.set(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}
+  try{
+    await window.storage.set(STORAGE_KEY,JSON.stringify(cfg));
+    // Leitura de verificação imediata
+    var check=await window.storage.get(STORAGE_KEY);
+    if(!check||!check.value) throw new Error('Verificação pós-save falhou');
+    return true;
+  }catch(e){
+    console.error('Erro ao salvar configuração:',e);
+    return false;
+  }
 }
 
 // ── ROUTING ──
@@ -328,8 +337,8 @@ function renderTable(){
     +'</td>'+'</tr>';
   }).join('');
 }
-function adjProj(id,delta){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+delta);saveCfg();renderTable();}}
-function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});saveCfg();renderTable();toast('CSM removido.');}
+async function adjProj(id,delta){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+delta);var ok=await saveCfg();renderTable();if(!ok)toast('⚠️ Erro ao salvar. Tente novamente.');}}
+async function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});var ok=await saveCfg();if(ok){renderTable();toast('CSM removido.');}else{toast('⚠️ Erro ao excluir. Tente novamente.');await loadCfg();renderTable();}}
 
 // ── SLOT EDITOR ──
 function buildSlotGrid(existing){
@@ -380,7 +389,7 @@ function openModalAdd(){editId=null;document.getElementById('modal-ttl').textCon
 function openModalEdit(id){var c=cfg.csms.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('modal-ttl').textContent='Editar CSM – '+c.name;document.getElementById('m-name').value=c.name;document.getElementById('m-email').value=c.email;document.getElementById('m-ics').value=c.ics||'';document.getElementById('m-proj').value=c.projects||0;document.getElementById('modal-err').style.display='none';buildSlotGrid(c.slots||[]);showEl('csm-modal');}
 function closeModal(){hideEl('csm-modal');editId=null;}
 function bgClose(e){if(e.target.id==='csm-modal')closeModal();}
-function saveCSM(){
+async function saveCSM(){
   var name=document.getElementById('m-name').value.trim();
   var email=document.getElementById('m-email').value.trim();
   var ics=document.getElementById('m-ics').value.trim();
@@ -389,9 +398,19 @@ function saveCSM(){
   var merr=document.getElementById('modal-err');
   if(!name||!email){merr.textContent='Nome e e-mail são obrigatórios.';merr.style.display='block';return;}
   merr.style.display='none';
+  var btnSave=document.querySelector('#csm-modal .btn.btn-sm.btn-primary');
+  if(btnSave){btnSave.disabled=true;btnSave.textContent='Salvando...';}
   if(editId){var c=cfg.csms.find(function(x){return x.id===editId;});if(c){c.name=name;c.email=email;c.ics=ics;c.projects=proj;c.slots=slots;}}
   else cfg.csms.push({id:uid(),name:name,email:email,ics:ics,projects:proj,slots:slots});
-  saveCfg();renderTable();closeModal();toast(editId?'CSM atualizado!':'CSM adicionado!');
+  var ok=await saveCfg();
+  if(btnSave){btnSave.disabled=false;btnSave.textContent='Salvar';}
+  if(ok){renderTable();closeModal();toast(editId?'✅ CSM atualizado!':'✅ CSM adicionado!');}
+  else{
+    // Reverte a mudança local se não salvou
+    await loadCfg();renderTable();
+    merr.textContent='⚠️ Erro ao salvar. Verifique sua conexão e tente novamente.';
+    merr.style.display='block';
+  }
 }
 
 // ── UNION MAP ──
@@ -422,12 +441,12 @@ async function checkAndRenderMonth(){
     (function(iso2,dow2,csms2){
       var dayChecks=csms2.map(function(csm){
         var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow2;});
-        if(!csm.ics) return Promise.resolve(true);
+        if(!csm.ics) return Promise.resolve(false); // sem ICS = não exibir
         return fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
           body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso2,duration:DURATION,slots:slotsCSM,slaHours:0})})
           .then(function(r){return r.json();})
           .then(function(data){return(data.slots||[]).length>0;})
-          .catch(function(){return true;});
+          .catch(function(){return false;}); // erro = não exibir
       });
       promises.push(Promise.all(dayChecks).then(function(res){return{iso:iso2,free:res.some(function(f){return f;})};}));
     })(iso,dow,csmsNoDia);
@@ -474,13 +493,13 @@ async function pickDate(iso,dow){
   var livresSet={};
   await Promise.all(csmsNoDia.map(async function(csm){
     var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow;});
-    if(!csm.ics){slotsCSM.forEach(function(s){livresSet[s.time]=true;});return;}
+    if(!csm.ics) return; // sem ICS = não exibir horários
     try{
       var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso,duration:DURATION,slots:slotsCSM,slaHours:0})});
       var data=await r.json();
       (data.slots||[]).forEach(function(s){livresSet[s.time]=true;});
-    }catch(e){slotsCSM.forEach(function(s){livresSet[s.time]=true;});}
+    }catch(e){} // erro = não exibir o slot
   }));
 
   var livres=Object.keys(livresSet).sort();
