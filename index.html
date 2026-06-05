@@ -283,21 +283,45 @@ function toast(msg){var el=document.getElementById('toast');el.textContent=msg;e
 function showEl(id){document.getElementById(id).classList.remove('hd');}
 function hideEl(id){document.getElementById(id).classList.add('hd');}
 
-// ── STORAGE ──
+// ── STORAGE ABSTRACTION ──
+// Usa window.storage dentro do Claude.ai e localStorage quando publicado
+var Store = {
+  _useWindowStorage: typeof window !== 'undefined' && typeof window.storage !== 'undefined',
+  get: async function(key){
+    if(this._useWindowStorage){
+      try{var r=await window.storage.get(key);return(r&&r.value)?r.value:null;}
+      catch(e){return null;}
+    } else {
+      try{return localStorage.getItem(key);}catch(e){return null;}
+    }
+  },
+  set: async function(key,value){
+    if(this._useWindowStorage){
+      try{
+        await window.storage.set(key,value);
+        var check=await window.storage.get(key);
+        return !!(check&&check.value);
+      }catch(e){return false;}
+    } else {
+      try{localStorage.setItem(key,value);return localStorage.getItem(key)===value;}
+      catch(e){return false;}
+    }
+  }
+};
+
 async function loadCfg(){
-  try{var r=await window.storage.get(STORAGE_KEY);if(r&&r.value){cfg=JSON.parse(r.value);return;}}catch(e){}
-  cfg={csms:[
-    {id:uid(),name:"Davi Morais",email:"davi.clipescola@gmail.com",ics:"",projects:0,slots:[{day:1,time:"09:00"},{day:3,time:"09:00"},{day:5,time:"09:00"}]},
-    {id:uid(),name:"Pollyanna",email:"pollyanna.clipescola@gmail.com",ics:"",projects:0,slots:[{day:2,time:"09:00"},{day:4,time:"14:00"}]},
-    {id:uid(),name:"Marina Landucha",email:"marinalanducha.clipescola@gmail.com",ics:"",projects:0,slots:[{day:1,time:"14:00"},{day:3,time:"14:00"}]}
-  ]};
+  try{
+    var raw=await Store.get(STORAGE_KEY);
+    if(raw){cfg=JSON.parse(raw);return;}
+  }catch(e){}
+  // Sem dados salvos: inicia lista vazia (sem defaults fixos)
+  cfg={csms:[]};
 }
+
 async function saveCfg(){
   try{
-    await window.storage.set(STORAGE_KEY,JSON.stringify(cfg));
-    // Leitura de verificação imediata
-    var check=await window.storage.get(STORAGE_KEY);
-    if(!check||!check.value) throw new Error('Verificação pós-save falhou');
+    var ok=await Store.set(STORAGE_KEY,JSON.stringify(cfg));
+    if(!ok) throw new Error('set retornou false');
     return true;
   }catch(e){
     console.error('Erro ao salvar configuração:',e);
