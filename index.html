@@ -553,22 +553,61 @@ function renderCal(){
   var w=document.getElementById('cal-wrap'); w.innerHTML=''; w.appendChild(grid);
 }
 
-function pickDate(iso,dow){
+async function pickDate(iso,dow){
   selDate=iso; selTime='';
   document.getElementById('btn1').disabled=true;
   renderCal();
   showEl('tw');
-  var umap=unionMap();
-  var times = umap[dow] ? Object.keys(umap[dow]).sort() : [];
-  var dt = new Date(iso+'T12:00:00');
-  document.getElementById('tl').textContent =
+
+  var dt=new Date(iso+'T12:00:00');
+  document.getElementById('tl').textContent=
     'Horários – '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
-  var tc=document.getElementById('times'); tc.innerHTML='';
-  if(!times.length){
-    tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário disponível nesta data.</span>';
+  var tc=document.getElementById('times');
+  tc.innerHTML='<span style="color:#6b7280;font-size:13px">⏳ Verificando agenda...</span>';
+
+  // CSMs que têm slots configurados neste dia
+  var csmsDoDia=cfg.csms.filter(function(c){
+    return (c.slots||[]).some(function(s){return s.day===dow;});
+  });
+
+  // Checa ICS de cada CSM em paralelo e coleta horários livres
+  var livresSet={};
+  await Promise.all(csmsDoDia.map(async function(csm){
+    var slotsDoCSM=(csm.slots||[]).filter(function(s){return s.day===dow;});
+    if(!csm.ics){
+      // Sem ICS configurado → trata todos os slots como livres
+      slotsDoCSM.forEach(function(s){livresSet[s.time]=true;});
+      return;
+    }
+    try{
+      var r=await fetch(WV,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          csmEmail:csm.email,
+          icsUrl:csm.ics,
+          date:iso,
+          duration:DURATION,
+          slots:slotsDoCSM,
+          slaHours:0
+        })
+      });
+      var data=await r.json();
+      (data.slots||[]).forEach(function(s){livresSet[s.time]=true;});
+    }catch(e){
+      // Erro na verificação → exibe os slots (fallback seguro)
+      slotsDoCSM.forEach(function(s){livresSet[s.time]=true;});
+    }
+  }));
+
+  var livres=Object.keys(livresSet).sort();
+  tc.innerHTML='';
+
+  if(!livres.length){
+    tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário disponível nesta data. Escolha outra.</span>';
     return;
   }
-  times.forEach(function(t){
+  livres.forEach(function(t){
     var b=document.createElement('div'); b.className='ts'; b.dataset.time=t;
     b.innerHTML=t+' <span style="font-size:11px;opacity:.7">até '+addMin(t,DURATION)+'</span>';
     b.addEventListener('click',function(){
