@@ -254,8 +254,10 @@ input:focus,select:focus{border-color:#22367b}
 
 <script>
 // ═══ CONFIG ═══════════════════════════════
-var WA   = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
-var WV   = "https://n8n.clipescola.com.br/webhook/verificar-csm";
+var WA      = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
+var WV      = "https://n8n.clipescola.com.br/webhook/verificar-csm";
+var WC_GET  = "https://n8n.clipescola.com.br/webhook/config-mid-touch";
+var WC_SAVE = "https://n8n.clipescola.com.br/webhook/config-mid-touch-save";
 var SHEET= "1rwNkmBUlOjfUHbIbHpyHiLfou8tYyJfQbZtz0dwjgwA";
 var MEETING_TYPE = "CS Mid Touch";
 var DURATION = 60;
@@ -284,47 +286,44 @@ function showEl(id){document.getElementById(id).classList.remove('hd');}
 function hideEl(id){document.getElementById(id).classList.add('hd');}
 
 // ── STORAGE ABSTRACTION ──
-// Usa window.storage dentro do Claude.ai e localStorage quando publicado
-var Store = {
-  _useWindowStorage: typeof window !== 'undefined' && typeof window.storage !== 'undefined',
-  get: async function(key){
-    if(this._useWindowStorage){
-      try{var r=await window.storage.get(key);return(r&&r.value)?r.value:null;}
-      catch(e){return null;}
-    } else {
-      try{return localStorage.getItem(key);}catch(e){return null;}
-    }
-  },
-  set: async function(key,value){
-    if(this._useWindowStorage){
-      try{
-        await window.storage.set(key,value);
-        var check=await window.storage.get(key);
-        return !!(check&&check.value);
-      }catch(e){return false;}
-    } else {
-      try{localStorage.setItem(key,value);return localStorage.getItem(key)===value;}
-      catch(e){return false;}
-    }
-  }
-};
-
+// Lê/grava via n8n → Google Sheets. localStorage como cache offline.
 async function loadCfg(){
+  // 1. Tenta buscar do servidor (n8n → Google Sheets)
   try{
-    var raw=await Store.get(STORAGE_KEY);
-    if(raw){cfg=JSON.parse(raw);return;}
+    var r = await fetch(WC_GET, {method:'GET'});
+    if(r.ok){
+      var data = await r.json();
+      if(data && Array.isArray(data.csms)){
+        cfg = data;
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg)); }catch(e){}
+        return;
+      }
+    }
+  }catch(e){ console.warn('Servidor de config indisponível, usando cache local.', e); }
+  // 2. Fallback: cache localStorage
+  try{
+    var cached = localStorage.getItem(STORAGE_KEY);
+    if(cached){ cfg = JSON.parse(cached); return; }
   }catch(e){}
-  // Sem dados salvos: inicia lista vazia (sem defaults fixos)
-  cfg={csms:[]};
+  // 3. Sem dados: inicia vazio
+  cfg = { csms: [] };
 }
 
 async function saveCfg(){
   try{
-    var ok=await Store.set(STORAGE_KEY,JSON.stringify(cfg));
-    if(!ok) throw new Error('set retornou false');
+    var r = await fetch(WC_SAVE, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(cfg)
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var resp = await r.json().catch(function(){return{};});
+    if(resp.status === 'error') throw new Error(resp.message || 'Erro no servidor');
+    // Atualiza cache local após salvar com sucesso no servidor
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg)); }catch(e){}
     return true;
   }catch(e){
-    console.error('Erro ao salvar configuração:',e);
+    console.error('Erro ao salvar configuração:', e);
     return false;
   }
 }
