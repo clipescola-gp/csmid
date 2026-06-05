@@ -602,33 +602,52 @@ async function confirmar(){
   var er=document.getElementById('ferr');
   if(!s||!c||!e||!p){ er.style.display='block'; return; }
   er.style.display='none';
-  var btn=document.getElementById('btn2'); btn.disabled=true; btn.textContent='Aguarde...';
+  var btn=document.getElementById('btn2'); btn.disabled=true; btn.textContent='Verificando disponibilidade...';
 
   var dt=new Date(selDate+'T12:00:00');
   var dow=dt.getDay();
-  var csm=assignCSM(dow, selTime);
-  if(!csm){ er.textContent='Nenhum CSM disponível. Escolha outro horário.'; er.style.display='block'; btn.disabled=false; btn.textContent='Confirmar agendamento'; return; }
 
-  // Increment project count (optimistic)
-  var idx=cfg.csms.findIndex(function(x){return x.id===csm.id;});
-  if(idx>=0) cfg.csms[idx].projects++;
-  await saveCfg();
+  // Monta lista de candidatos ordenada por projetos (menor primeiro),
+  // filtrando apenas quem tem esse slot configurado. Fallback: todos.
+  var candidates=cfg.csms
+    .filter(function(x){ return (x.slots||[]).some(function(s){ return s.day===dow&&s.time===selTime; }); })
+    .sort(function(a,b){ return a.projects-b.projects; })
+    .map(function(x){ return {id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects}; });
+  if(!candidates.length)
+    candidates=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;})
+      .map(function(x){return {id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
 
   var payload={
-    csm: csm.name, csmEmail: csm.email, icsUrl: csm.ics,
-    sheetId: SHEET, date: selDate, time: selTime, endTime: addMin(selTime,DURATION),
-    meetingType: MEETING_TYPE, duration: DURATION,
-    timezone: "America/Sao_Paulo",
-    timezoneLabel: "Horário de Brasília (GMT-3)",
-    timezoneNote: "Este agendamento está fixado no horário de Brasília (GMT-3), independentemente da localização do cliente.",
-    school:s, contact:c, email:e, phone:p, guests:g
+    date:selDate, time:selTime, endTime:addMin(selTime,DURATION),
+    meetingType:MEETING_TYPE, duration:DURATION,
+    timezone:"America/Sao_Paulo",
+    timezoneLabel:"Horário de Brasília (GMT-3)",
+    timezoneNote:"Horário fixado em America/Sao_Paulo independente da localização do cliente.",
+    sheetId:SHEET,
+    school:s, contact:c, email:e, phone:p, guests:g,
+    csmCandidates:candidates
   };
 
   try{
+    btn.textContent='Agendando...';
     var r=await fetch(WA,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     var resp=await r.json().catch(function(){return{};});
+
+    // n8n retorna status:'unavailable' se nenhum CSM tiver agenda livre
+    if(resp.status==='unavailable'){
+      er.textContent='Nenhum CSM disponível neste horário. Por favor, escolha outro horário ou data.';
+      er.style.display='block'; btn.disabled=false; btn.textContent='Confirmar agendamento'; return;
+    }
+
+    // Incrementa o contador do CSM atribuído (confirmado pelo n8n)
+    if(resp.csmId){
+      var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});
+      if(idx>=0){ cfg.csms[idx].projects++; await saveCfg(); }
+    }
+
     showPub('succ');
-    var ml=resp&&resp.meetLink;
+    var csmName=resp.csm||'seu CSM';
+    var ml=resp.meetLink;
     var meetEl='';
     if(ml){
       meetEl="<div class='meet-box'><div class='meet-box-ttl'>🎥 Link da reunião</div>"
@@ -636,9 +655,9 @@ async function confirmar(){
         +"<button class='copy-btn' id='copy-btn'>Copiar</button></div></div>";
     }
     document.getElementById('sd').innerHTML=
-      '<div style="margin-bottom:4px"><strong>CS Mid Touch</strong> com <strong>'+csm.name+'</strong></div>'
+      '<div style="margin-bottom:4px"><strong>CS Mid Touch</strong> com <strong>'+csmName+'</strong></div>'
       +'<div style="color:#6b7280">📅 '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+'</div>'
-      +'<div style="color:#6b7280">🕐 '+selTime+' às '+addMin(selTime,DURATION)
+      +'<div style="color:#6b7280">🕐 '+selTime+' – '+addMin(selTime,DURATION)
       +' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'
       +meetEl;
     var cb=document.getElementById('copy-btn');
@@ -648,9 +667,6 @@ async function confirmar(){
       });
     });
   }catch(err){
-    // Revert increment on failure
-    if(idx>=0) cfg.csms[idx].projects--;
-    await saveCfg();
     er.textContent='Erro ao enviar. Verifique sua conexão e tente novamente.';
     er.style.display='block'; btn.disabled=false; btn.textContent='Confirmar agendamento';
   }
