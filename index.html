@@ -259,6 +259,7 @@ var BAKED_CONFIG={"csms":[]};
 // @@CONFIG_END@@
 var WA      = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
 var WV      = "https://n8n.clipescola.com.br/webhook/verificar-csm";
+var WC_GET  = "https://n8n.clipescola.com.br/webhook/config-mid-touch";
 var WC_SAVE = "https://n8n.clipescola.com.br/webhook/config-mid-touch-save";
 var SHEET= "1rwNkmBUlOjfUHbIbHpyHiLfou8tYyJfQbZtz0dwjgwA";
 var MEETING_TYPE = "CS Mid Touch";
@@ -290,30 +291,27 @@ function hideEl(id){document.getElementById(id).classList.add('hd');}
 // ── STORAGE ABSTRACTION ──
 // Lê/grava via n8n → Google Sheets. localStorage como cache offline.
 async function loadCfg(){
-  // 1. API do GitHub (sempre fresca, sem cache)
+  // 1. n8n Static Data (fonte oficial — funciona em qualquer browser)
   try{
-    var r=await fetch(
-      'https://api.github.com/repos/clipescola-gp/csmid/contents/csm-config.json',
-      { headers:{ 'Accept':'application/vnd.github.raw+json', 'Cache-Control':'no-cache' } }
-    );
+    var r=await fetch(WC_GET, {method:'GET'});
     if(r.ok){
       var data=await r.json();
-      if(data && Array.isArray(data.csms)){
+      if(data&&Array.isArray(data.csms)){
         cfg=data;
-        try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg)); }catch(e){}
+        try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}
         return;
       }
     }
-  }catch(e){ console.warn('GitHub API indisponível:',e); }
-  // 2. Cache localStorage
+  }catch(e){console.warn('Config endpoint indisponível:',e);}
+  // 2. Cache localStorage (fallback offline)
   try{
     var cached=localStorage.getItem(STORAGE_KEY);
-    if(cached){ cfg=JSON.parse(cached); return; }
+    if(cached){cfg=JSON.parse(cached);return;}
   }catch(e){}
   // 3. BAKED_CONFIG
   try{
     if(typeof BAKED_CONFIG!=='undefined'&&Array.isArray(BAKED_CONFIG.csms)){
-      cfg=JSON.parse(JSON.stringify(BAKED_CONFIG)); return;
+      cfg=JSON.parse(JSON.stringify(BAKED_CONFIG));return;
     }
   }catch(e){}
   cfg={csms:[]};
