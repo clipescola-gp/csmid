@@ -291,9 +291,9 @@ function hideEl(id){document.getElementById(id).classList.add('hd');}
 // ── STORAGE ABSTRACTION ──
 // Lê/grava via n8n → Google Sheets. localStorage como cache offline.
 async function loadCfg(){
-  // 1. n8n Static Data (fonte oficial — funciona em qualquer browser)
+  // 1. n8n GET endpoint (fonte principal — armazenado no static data do n8n)
   try{
-    var r=await fetch(WC_GET, {method:'GET'});
+    var r=await fetch(WC_GET,{cache:'no-store'});
     if(r.ok){
       var data=await r.json();
       if(data&&Array.isArray(data.csms)){
@@ -302,13 +302,13 @@ async function loadCfg(){
         return;
       }
     }
-  }catch(e){console.warn('Config endpoint indisponível:',e);}
-  // 2. Cache localStorage (fallback offline)
+  }catch(e){console.warn('n8n config indisponível:',e);}
+  // 2. Cache localStorage (fallback offline / mesmo browser)
   try{
     var cached=localStorage.getItem(STORAGE_KEY);
     if(cached){cfg=JSON.parse(cached);return;}
   }catch(e){}
-  // 3. BAKED_CONFIG
+  // 3. BAKED_CONFIG (último recurso)
   try{
     if(typeof BAKED_CONFIG!=='undefined'&&Array.isArray(BAKED_CONFIG.csms)){
       cfg=JSON.parse(JSON.stringify(BAKED_CONFIG));return;
@@ -330,7 +330,7 @@ async function saveCfg(){
       if(resp.status!=='error') githubOk=true;
     }
   }catch(e){ console.error('Sync GitHub falhou:',e); }
-  return {ok:localOk||githubOk, local:localOk, github:githubOk};
+  return {ok:localOk||serverOk, local:localOk, server:serverOk};
 }
 
 // ── ROUTING ──
