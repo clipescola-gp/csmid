@@ -290,30 +290,30 @@ function hideEl(id){document.getElementById(id).classList.add('hd');}
 // ── STORAGE ABSTRACTION ──
 // Lê/grava via n8n → Google Sheets. localStorage como cache offline.
 async function loadCfg(){
-  // 1. Busca csm-config.json direto do GitHub (cache-bust garante versão fresca)
+  // 1. API do GitHub (sempre fresca, sem cache)
   try{
     var r=await fetch(
-      'https://raw.githubusercontent.com/clipescola-gp/csmid/main/csm-config.json?_='+Date.now(),
-      {cache:'no-store'}
+      'https://api.github.com/repos/clipescola-gp/csmid/contents/csm-config.json',
+      { headers:{ 'Accept':'application/vnd.github.raw+json', 'Cache-Control':'no-cache' } }
     );
     if(r.ok){
       var data=await r.json();
-      if(data&&Array.isArray(data.csms)){
+      if(data && Array.isArray(data.csms)){
         cfg=data;
-        try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}
+        try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg)); }catch(e){}
         return;
       }
     }
-  }catch(e){console.warn('Config remota indisponível:',e);}
-  // 2. Cache localStorage (fallback offline)
+  }catch(e){ console.warn('GitHub API indisponível:',e); }
+  // 2. Cache localStorage
   try{
     var cached=localStorage.getItem(STORAGE_KEY);
-    if(cached){cfg=JSON.parse(cached);return;}
+    if(cached){ cfg=JSON.parse(cached); return; }
   }catch(e){}
-  // 3. BAKED_CONFIG (último recurso)
+  // 3. BAKED_CONFIG
   try{
     if(typeof BAKED_CONFIG!=='undefined'&&Array.isArray(BAKED_CONFIG.csms)){
-      cfg=JSON.parse(JSON.stringify(BAKED_CONFIG));return;
+      cfg=JSON.parse(JSON.stringify(BAKED_CONFIG)); return;
     }
   }catch(e){}
   cfg={csms:[]};
