@@ -552,7 +552,11 @@ function assignCSM(dow,time){
 }
 
 // ── CONFIRM ──
+// Proteção contra duplo envio
+var _submitting = false;
+
 async function confirmar(){
+  if(_submitting) return;
   var s=document.getElementById('fi-school').value.trim();
   var c=document.getElementById('fi-contact').value.trim();
   var e=document.getElementById('fi-email').value.trim();
@@ -561,6 +565,7 @@ async function confirmar(){
   var er=document.getElementById('ferr');
   if(!s||!c||!e||!p){er.style.display='block';return;}
   er.style.display='none';
+  _submitting = true;
   var btn=document.getElementById('btn2'); btn.disabled=true; btn.textContent='Verificando disponibilidade...';
   var dt=new Date(selDate+'T12:00:00');
   var dow=dt.getDay();
@@ -601,6 +606,7 @@ async function confirmar(){
     var cb=document.getElementById('copy-btn');
     if(cb&&ml)cb.addEventListener('click',function(){navigator.clipboard.writeText(ml).then(function(){cb.textContent='Copiado!';setTimeout(function(){cb.textContent='Copiar';},2000);});});
   }catch(err){
+    _submitting = false;
     er.textContent='Erro ao enviar. Tente novamente.';er.style.display='block';btn.disabled=false;btn.textContent='Confirmar agendamento';
   }
 }
