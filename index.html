@@ -3,110 +3,113 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CS Mid Touch – ClipEscola</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Nunito,sans-serif;background:#f0f2f7;min-height:100vh}
 .hd{display:none!important}
-
+/* Header */
 .hdr{background:#22367b;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:relative}
 .hdr img{height:36px;object-fit:contain}
 .badge{background:rgba(255,202,38,.15);border:1px solid rgba(255,202,38,.4);color:#ffca26;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
-#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.25);cursor:pointer}
-
-/* PUBLIC */
+#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.2);cursor:pointer;user-select:none}
+/* Hero */
 .hero{background:linear-gradient(135deg,#22367b 0%,#1a2d6b 100%);padding:48px 32px 56px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(255,202,38,.07);top:-80px;right:-80px}
+.hero::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,202,38,.07);top:-80px;right:-60px}
 .hero-tag{display:inline-block;background:rgba(255,202,38,.15);border:1px solid rgba(255,202,38,.35);color:#ffca26;font-size:12px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
 .hero h1{color:#fff;font-size:28px;font-weight:800;margin-bottom:8px}
 .hero p{color:rgba(255,255,255,.75);font-size:15px;max-width:480px;margin:0 auto 20px}
 .hero-meta{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:8px 20px;color:#fff;font-size:13px;font-weight:700}
-
+/* Layout */
 .wrap{max-width:700px;margin:0 auto;padding:28px 16px}
 .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .ttl{font-size:15px;font-weight:800;color:#22367b;margin-bottom:14px}
-
-/* Motivo cards */
-.tc{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:10px;margin-bottom:8px;border:2px solid #e5e7eb;cursor:pointer;user-select:none;transition:all .15s}
+/* Type cards */
+.tc{display:flex;align-items:center;padding:14px 16px;border-radius:10px;margin-bottom:8px;border:2px solid #e5e7eb;cursor:pointer;user-select:none;transition:all .15s}
 .tc:hover{border-color:#22367b;background:#eff6ff}
 .tc.sel{border-color:#22367b;background:#eff6ff}
 .tc .tn{font-weight:700;font-size:14px;color:#374151}
 .tc.sel .tn{color:#22367b}
-.tc .td{font-size:13px;color:#9ca3af}
-
+/* Inputs */
 label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
 input,select{width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;font-family:inherit;outline:none;color:#111827}
 input:focus,select:focus{border-color:#22367b}
+/* Buttons */
 .btn{padding:11px 22px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;background:#22367b;color:#fff;transition:opacity .15s}
 .btn:hover{opacity:.88}.btn:disabled{opacity:.4;cursor:default}
 .back{padding:10px 20px;border-radius:8px;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;color:#6b7280}
-
+/* Calendar */
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:500;cursor:default;border:2px solid transparent;user-select:none}
+.cc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:600;cursor:default;border:2px solid transparent;user-select:none}
 .av{background:#f0fdf4;color:#166534;cursor:pointer;font-weight:700}.av:hover{background:#dcfce7}
-.sl{background:#22367b!important;color:#fff!important;border-color:#22367b!important;font-weight:800}
+.sl{background:#22367b!important;color:#fff!important;border-color:#22367b!important}
 .em{color:#d1d5db}
-.ts{padding:9px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;background:#f0f9ff;color:#0369a1;border:2px solid #bae6fd;font-family:inherit;user-select:none;display:inline-block;margin:4px}
-.ts.sel{background:#22367b;color:#fff;border-color:#22367b}
-.info-bar{background:#eff6ff;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#22367b;font-weight:600}
-.succ-box{background:#ecfdf5;border:2px solid #6ee7b7;border-radius:12px;padding:32px;text-align:center}
-.ferr{color:#dc2626;font-size:13px;margin-top:10px;display:none}
-.frow{display:flex;flex-direction:column;gap:12px}
 .cnav{display:flex;gap:6px;align-items:center}
 .cnav button{padding:5px 10px;border-radius:6px;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-family:inherit;font-size:14px}
 .tz-note{font-size:11px;font-weight:700;background:#fef9c3;border:1px solid #fde047;color:#713f12;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
+/* Time slots */
+.ts{padding:9px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;background:#f0f9ff;color:#0369a1;border:2px solid #bae6fd;font-family:inherit;user-select:none;display:inline-block;margin:4px}
+.ts.sel{background:#22367b;color:#fff;border-color:#22367b}
+/* Loading */
+.loading{text-align:center;padding:32px;color:#6b7280;font-size:14px}
+/* Info bar */
+.info-bar{background:#eff6ff;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#22367b;font-weight:600}
+/* Form */
+.frow{display:flex;flex-direction:column;gap:12px}
+.ferr{color:#dc2626;font-size:13px;margin-top:10px;display:none}
+/* Success */
+.succ-box{background:#ecfdf5;border:2px solid #6ee7b7;border-radius:12px;padding:32px;text-align:center}
+/* Meet link */
 .meet-box{margin-top:14px;background:#eff6ff;border-radius:8px;padding:12px 14px}
-.meet-box-ttl{font-weight:800;color:#22367b;font-size:13px;margin-bottom:8px}
+.meet-ttl{font-weight:800;color:#22367b;font-size:13px;margin-bottom:8px}
 .meet-row{display:flex;align-items:center;gap:8px}
 .meet-link{flex:1;word-break:break-all;color:#1d4ed8;font-size:13px}
 .copy-btn{flex-shrink:0;padding:6px 14px;border-radius:6px;border:1.5px solid #d3e2f2;background:#fff;color:#22367b;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
-.loading-cal{text-align:center;padding:28px 0;color:#6b7280;font-size:13px}
-
-/* ADMIN */
-.admin-wrap{max-width:940px;margin:0 auto;padding:24px 16px}
+/* Admin */
+.adm-wrap{max-width:940px;margin:0 auto;padding:24px 16px}
 .adm-card{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.adm-ttl{font-size:16px;font-weight:800;color:#22367b;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.adm-ttl{font-size:16px;font-weight:800;color:#22367b;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #f3f4f6}
 .tbl td{padding:11px 12px;font-size:13px;border-bottom:1px solid #f9fafb;vertical-align:middle}
 .tbl tr:last-child td{border:none}
 .tbl tr:hover td{background:#fafafa}
-.proj-badge{display:inline-block;background:#eff6ff;color:#22367b;font-weight:800;border-radius:6px;padding:2px 10px;font-size:14px;min-width:34px;text-align:center}
-.next-badge{font-size:10px;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:6px;vertical-align:middle}
-.btn-sm{padding:6px 13px;font-size:12px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-family:inherit;transition:opacity .15s}
-.btn-sm:hover{opacity:.85}
-.btn-primary{background:#22367b;color:#fff}
-.btn-danger{background:#fee2e2;color:#dc2626}
-.btn-ghost{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
+.proj{display:inline-block;background:#eff6ff;color:#22367b;font-weight:800;border-radius:6px;padding:2px 10px;font-size:14px;min-width:34px;text-align:center}
+.next-b{font-size:10px;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;margin-left:6px}
+.bsm{padding:6px 13px;font-size:12px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-family:inherit}
+.bp{background:#22367b;color:#fff}
+.bd{background:#fee2e2;color:#dc2626}
+.bg{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
 .ics-ok{font-size:11px;color:#166534;font-weight:700}
-.ics-miss{font-size:11px;color:#dc2626;font-weight:700}
-
+.ics-no{font-size:11px;color:#dc2626;font-weight:700}
+/* Modal */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:620px;margin:auto}
 .modal-ttl{font-size:16px;font-weight:800;color:#22367b;margin-bottom:20px}
-
+/* Slot editor */
 .day-block{border:1px solid #e5e7eb;border-radius:9px;margin-bottom:8px;overflow:hidden}
-.day-block-hdr{background:#f8fafc;padding:8px 12px;font-size:12px;font-weight:800;color:#22367b;display:flex;align-items:center;justify-content:space-between}
-.day-block-body{padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:42px}
-.slot-tag{display:inline-flex;align-items:center;gap:5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;color:#1d4ed8}
-.slot-tag button{background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;line-height:1;padding:0}
-.slot-tag button:hover{color:#dc2626}
-.slot-add{display:inline-flex;align-items:center;gap:4px}
-.slot-add input{width:72px;padding:4px 8px;border:1.5px solid #d1d5db;border-radius:7px;font-size:12px;font-family:inherit;text-align:center}
-.slot-add input:focus{border-color:#22367b;outline:none}
-.slot-add button{padding:4px 10px;background:#22367b;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
-
-.toast{position:fixed;bottom:20px;right:20px;background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;z-index:300;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
-.toast.show{opacity:1;transform:translateY(0)}
+.day-hdr{background:#f8fafc;padding:8px 12px;font-size:12px;font-weight:800;color:#22367b;display:flex;align-items:center;justify-content:space-between}
+.day-body{padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:42px}
+.stag{display:inline-flex;align-items:center;gap:5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;color:#1d4ed8}
+.stag button{background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;line-height:1;padding:0}
+.stag button:hover{color:#dc2626}
+.sadd{display:inline-flex;align-items:center;gap:4px}
+.sadd input{width:72px;padding:4px 8px;border:1.5px solid #d1d5db;border-radius:7px;font-size:12px;font-family:inherit;text-align:center}
+.sadd input:focus{border-color:#22367b;outline:none}
+.sadd button{padding:4px 10px;background:#22367b;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+/* Login */
 .login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 64px);padding:24px}
 .login-box{background:#fff;border-radius:14px;padding:32px;width:100%;max-width:340px;box-shadow:0 4px 20px rgba(0,0,0,.1);text-align:center}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;z-index:300;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
 .info-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#78350f;line-height:1.6}
-
 @media(max-width:560px){.hero{padding:32px 16px 44px}.card,.adm-card,.modal{padding:16px}.tbl td,.tbl th{padding:8px}}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="hdr">
   <img src="https://i.imgur.com/IVPOWqc.png" alt="ClipEscola" onerror="this.style.display='none'">
   <div class="badge" id="hdr-badge">CS Mid Touch</div>
@@ -145,8 +148,8 @@ input:focus,select:focus{border-color:#22367b}
           <button id="next-m">&#8250;</button>
         </div>
       </div>
-      <div class="tz-note">🌎 Todos os horários em Brasília (GMT-3)</div>
-      <div id="cal-wrap"></div>
+      <div class="tz-note">🌎 Horário de Brasília (GMT-3)</div>
+      <div id="cal-wrap"><div class="loading">⏳ Verificando disponibilidade...</div></div>
       <div id="tw" class="hd" style="margin-top:16px">
         <div id="tl" style="font-size:13px;font-weight:700;color:#6b7280;margin-bottom:8px"></div>
         <div id="times" style="display:flex;flex-wrap:wrap;gap:4px"></div>
@@ -188,7 +191,7 @@ input:focus,select:focus{border-color:#22367b}
 
 <!-- ═══ ADMIN ═══ -->
 <div id="view-admin" class="hd">
-  <div class="login-wrap" id="admin-login">
+  <div class="login-wrap" id="adm-login">
     <div class="login-box">
       <div style="font-size:36px;margin-bottom:10px">🔐</div>
       <div style="font-size:17px;font-weight:800;color:#22367b;margin-bottom:4px">Retaguarda</div>
@@ -199,11 +202,11 @@ input:focus,select:focus{border-color:#22367b}
     </div>
   </div>
   <div id="adm-panel" class="hd">
-    <div class="admin-wrap">
+    <div class="adm-wrap">
       <div class="adm-card">
         <div class="adm-ttl">
           <span>👥 Equipe de CSMs</span>
-          <button class="btn btn-sm btn-primary" onclick="openModalAdd()">+ Adicionar CSM</button>
+          <button class="bsm bp" onclick="openAdd()">+ Adicionar CSM</button>
         </div>
         <div style="overflow-x:auto">
           <table class="tbl">
@@ -212,9 +215,9 @@ input:focus,select:focus{border-color:#22367b}
           </table>
         </div>
       </div>
-      <div class="adm-card info-box" style="padding:16px 20px">
-        <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:6px">⚖️ Distribuição Automática</strong>
-        O sistema sempre encaminha ao CSM com <strong>menor número de projetos</strong> que tenha disponibilidade no horário. A cada agendamento confirmado, +1 é somado automaticamente. Ajuste manualmente quando necessário.
+      <div class="adm-card info-box">
+        <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:4px">⚖️ Distribuição Automática</strong>
+        A cada agendamento, o n8n verifica as agendas e atribui o CSM com <strong>menor número de projetos</strong> que esteja livre no horário escolhido. O contador é incrementado automaticamente após cada confirmação.
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <button class="back" onclick="goPublic()">← Voltar ao site</button>
@@ -244,8 +247,8 @@ input:focus,select:focus{border-color:#22367b}
     </div>
     <div id="modal-err" style="color:#dc2626;font-size:12px;margin-bottom:10px;display:none"></div>
     <div style="display:flex;gap:10px;justify-content:flex-end">
-      <button class="btn-sm btn-ghost" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-sm btn-primary" onclick="saveCSM()">Salvar</button>
+      <button class="bsm bg" onclick="closeModal()">Cancelar</button>
+      <button class="btn bsm bp" id="btn-save-csm" onclick="saveCSM()">Salvar</button>
     </div>
   </div>
 </div>
@@ -253,122 +256,90 @@ input:focus,select:focus{border-color:#22367b}
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══ CONFIG ═══════════════════════════════
-// @@CONFIG_START@@
-var BAKED_CONFIG={"csms":[]};
-// @@CONFIG_END@@
+// ═══ CONFIG ════════════════════════════
+var WV      = "https://n8n.clipescola.com.br/webhook/verificar-mid-touch";
 var WA      = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
-var WV      = "https://n8n.clipescola.com.br/webhook/verificar-csm";
 var WC_GET  = "https://n8n.clipescola.com.br/webhook/config-mid-touch";
 var WC_SAVE = "https://n8n.clipescola.com.br/webhook/config-mid-touch-save";
-var SHEET= "1rwNkmBUlOjfUHbIbHpyHiLfou8tYyJfQbZtz0dwjgwA";
-var MEETING_TYPE = "CS Mid Touch";
-var DURATION = 60;
-var ADMIN_PW = "clip2025";
-var STORAGE_KEY = "csm-mid-touch-config";
-// ══════════════════════════════════════════
+var DURATION   = 60;
+var ADMIN_PW   = "clip2025";
+var STORAGE_KEY= "csm-mid-touch-v8";
 
-var WEEKDAYS=[{n:"Seg",d:1},{n:"Ter",d:2},{n:"Qua",d:3},{n:"Qui",d:4},{n:"Sex",d:5}];
 var MONTHS=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 var DS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 var DL=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+var WEEKDAYS=[{n:'Seg',d:1},{n:'Ter',d:2},{n:'Qua',d:3},{n:'Qui',d:4},{n:'Sex',d:5}];
+// ═══════════════════════════════════════
 
 // STATE
 var cfg={csms:[]};
+var availDays={};   // {date: [time, ...]} — from n8n verificar-mid-touch
 var cy=new Date().getFullYear(), cm=new Date().getMonth();
 var selDate='', selTime='', selMotivo='';
-var currentFreeDays={};
-var editId=null, slotState={};
+var editId=null, slotState={}, _submitting=false;
 
-// ── UTILS ──
+// ── UTILS ──────────────────────────────
 function uid(){return 'csm'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
-function pad(n){return('0'+n).slice(-2);}
+function pad(n){return ('0'+n).slice(-2);}
 function addMin(t,m){var p=t.split(':'),v=+p[0]*60+ +p[1]+m;return pad(Math.floor(v/60))+':'+pad(v%60);}
 function toast(msg){var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2500);}
 function showEl(id){document.getElementById(id).classList.remove('hd');}
 function hideEl(id){document.getElementById(id).classList.add('hd');}
 
-// ── STORAGE ABSTRACTION ──
-// Lê/grava via n8n → Google Sheets. localStorage como cache offline.
+// ── STORAGE ────────────────────────────
 async function loadCfg(){
-  // 1. n8n GET endpoint (fonte principal — armazenado no static data do n8n)
   try{
     var r=await fetch(WC_GET,{cache:'no-store'});
-    if(r.ok){
-      var data=await r.json();
-      if(data&&Array.isArray(data.csms)){
-        cfg=data;
-        try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}
-        return;
-      }
-    }
+    if(r.ok){var d=await r.json();if(d&&Array.isArray(d.csms)){cfg=d;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}return;}}
   }catch(e){console.warn('n8n config indisponível:',e);}
-  // 2. Cache localStorage (fallback offline / mesmo browser)
-  try{
-    var cached=localStorage.getItem(STORAGE_KEY);
-    if(cached){cfg=JSON.parse(cached);return;}
-  }catch(e){}
-  // 3. BAKED_CONFIG (último recurso)
-  try{
-    if(typeof BAKED_CONFIG!=='undefined'&&Array.isArray(BAKED_CONFIG.csms)){
-      cfg=JSON.parse(JSON.stringify(BAKED_CONFIG));return;
-    }
-  }catch(e){}
+  try{var c=localStorage.getItem(STORAGE_KEY);if(c){cfg=JSON.parse(c);return;}}catch(e){}
   cfg={csms:[]};
 }
-
 async function saveCfg(){
-  // 1. Salva no localStorage imediatamente (mesmo browser, sem delay)
-  var localOk=false;
-  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg)); localOk=true; }catch(e){}
-  // 2. Envia ao n8n → GitHub (publica para todos os browsers em ~2 min)
-  var githubOk=false;
+  var lok=false,sok=false;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));lok=true;}catch(e){}
   try{
     var r=await fetch(WC_SAVE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(cfg)});
-    if(r.ok){
-      var resp=await r.json().catch(function(){return{};});
-      if(resp.status!=='error') githubOk=true;
-    }
-  }catch(e){ console.error('Sync GitHub falhou:',e); }
-  return {ok:localOk||serverOk, local:localOk, server:serverOk};
+    if(r.ok){var d=await r.json().catch(function(){return{};});if(d.status!=='error')sok=true;}
+  }catch(e){console.error('Sync n8n falhou:',e);}
+  return {ok:lok||sok,server:sok};
 }
 
-// ── ROUTING ──
+// ── ROUTING ────────────────────────────
+function showPub(id){['s0','s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});document.getElementById(id).classList.remove('hd');}
 function goAdmin(){hideEl('view-public');showEl('view-admin');document.getElementById('hdr-badge').textContent='Retaguarda';hideEl('admin-gear');}
 function goPublic(){hideEl('view-admin');showEl('view-public');document.getElementById('hdr-badge').textContent='CS Mid Touch';showEl('admin-gear');location.hash='';}
-function showPub(id){['s0','s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});document.getElementById(id).classList.remove('hd');}
 
-// ── ADMIN AUTH ──
+// ── ADMIN: AUTH ────────────────────────
 function checkPw(){
-  if(document.getElementById('adm-pw').value===ADMIN_PW){hideEl('admin-login');showEl('adm-panel');renderTable();}
+  if(document.getElementById('adm-pw').value===ADMIN_PW){hideEl('adm-login');showEl('adm-panel');renderTable();}
   else document.getElementById('pw-err').style.display='block';
 }
 
-// ── ADMIN TABLE ──
+// ── ADMIN: TABLE ───────────────────────
 function renderTable(){
   var sorted=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
   var tb=document.getElementById('csm-tbody');
-  if(!sorted.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Nenhum CSM cadastrado.</td></tr>';return;}
-  tb.innerHTML=sorted.map(function(c,i){
-    return '<tr>'
-    +'<td><strong>'+c.name+'</strong>'+(i===0?'<span class="next-badge">Próximo</span>':'')+'</td>'
+  if(!sorted.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Nenhum CSM. Clique em "+ Adicionar CSM".</td></tr>';return;}
+  tb.innerHTML=sorted.map(function(c,i){return '<tr>'
+    +'<td><strong>'+c.name+'</strong>'+(i===0?'<span class="next-b">Próximo</span>':'')+'</td>'
     +'<td style="color:#6b7280;font-size:12px">'+c.email+'</td>'
-    +'<td>'+(c.ics?'<span class="ics-ok">✅ Configurado</span>':'<span class="ics-miss">⚠ Sem ICS</span>')+'</td>'
+    +'<td>'+(c.ics?'<span class="ics-ok">✅ OK</span>':'<span class="ics-no">⚠ Sem ICS</span>')+'</td>'
     +'<td style="text-align:center">'
-      +'<button class="btn-sm btn-ghost" style="padding:3px 9px" onclick="adjProj(\''+c.id+'\',-1)">−</button>'
-      +' <span class="proj-badge">'+c.projects+'</span> '
-      +'<button class="btn-sm btn-ghost" style="padding:3px 9px" onclick="adjProj(\''+c.id+'\',1)">+</button>'
+      +'<button class="bsm bg" style="padding:3px 9px" onclick="adjProj(\''+c.id+'\',-1)">−</button>'
+      +' <span class="proj">'+c.projects+'</span> '
+      +'<button class="bsm bg" style="padding:3px 9px" onclick="adjProj(\''+c.id+'\',1)">+</button>'
     +'</td>'
-    +'<td style="display:flex;gap:6px;flex-wrap:wrap">'
-      +'<button class="btn-sm btn-primary" onclick="openModalEdit(\''+c.id+'\')">Editar</button>'
-      +'<button class="btn-sm btn-danger" onclick="delCSM(\''+c.id+'\')">Excluir</button>'
-    +'</td>'+'</tr>';
+    +'<td style="display:flex;gap:6px">'
+      +'<button class="bsm bp" onclick="openEdit(\''+c.id+'\')">Editar</button>'
+      +'<button class="bsm bd" onclick="delCSM(\''+c.id+'\')">Excluir</button>'
+    +'</td></tr>';
   }).join('');
 }
-async function adjProj(id,delta){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+delta);var ok=await saveCfg();renderTable();if(!ok)toast('⚠️ Erro ao salvar. Tente novamente.');}}
-async function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});var ok=await saveCfg();if(ok){renderTable();toast('CSM removido.');}else{toast('⚠️ Erro ao excluir. Tente novamente.');await loadCfg();renderTable();}}
+async function adjProj(id,d){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+d);var r=await saveCfg();renderTable();if(!r.ok)toast('⚠️ Erro ao salvar.');}}
+async function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});var r=await saveCfg();if(r.ok){renderTable();toast('CSM removido.');}else{toast('⚠️ Erro ao excluir.');await loadCfg();renderTable();}}
 
-// ── SLOT EDITOR ──
+// ── ADMIN: SLOT EDITOR ─────────────────
 function buildSlotGrid(existing){
   existing=existing||[];
   slotState={};
@@ -378,25 +349,22 @@ function buildSlotGrid(existing){
   renderSlotEditor();
 }
 function renderSlotEditor(){
-  var wrap=document.getElementById('sg-wrap');
-  wrap.innerHTML=WEEKDAYS.map(function(d){
+  document.getElementById('sg-wrap').innerHTML=WEEKDAYS.map(function(d){
     return '<div class="day-block" id="db-'+d.d+'">'
-      +'<div class="day-block-hdr"><span>'+d.n+'</span>'
-      +'<span style="font-size:10px;color:#9ca3af;font-weight:600">'+(slotState[d.d].length||'nenhum')+' horário'+(slotState[d.d].length!==1?'s':'')+'</span></div>'
-      +'<div class="day-block-body" id="dbb-'+d.d+'"></div>'
-      +'</div>';
+      +'<div class="day-hdr"><span>'+d.n+'</span><span style="font-size:10px;color:#9ca3af;font-weight:600">'+(slotState[d.d].length||'nenhum')+' horário'+(slotState[d.d].length!==1?'s':'')+'</span></div>'
+      +'<div class="day-body" id="dbb-'+d.d+'"></div></div>';
   }).join('');
   WEEKDAYS.forEach(function(d){renderDaySlots(d.d);});
 }
 function renderDaySlots(dow){
   var body=document.getElementById('dbb-'+dow);
   var times=slotState[dow]||[];
-  var html=times.map(function(t){return '<span class="slot-tag">'+t+'<button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button></span>';}).join('');
-  html+='<span class="slot-add"><input type="text" id="si-'+dow+'" placeholder="09:30" maxlength="5" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addSlot('+dow+');}"><button type="button" onclick="addSlot('+dow+')">+</button></span>';
+  var html=times.map(function(t){return '<span class="stag">'+t+'<button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button></span>';}).join('');
+  html+='<span class="sadd"><input type="text" id="si-'+dow+'" placeholder="09:30" maxlength="5" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addSlot('+dow+');}"><button type="button" onclick="addSlot('+dow+')">+</button></span>';
   body.innerHTML=html;
   var inp=document.getElementById('si-'+dow);
   if(inp)inp.addEventListener('input',function(){var v=this.value.replace(/[^0-9:]/g,'');if(v.length===2&&!v.includes(':'))v+=':';this.value=v;});
-  var hdr=document.querySelector('#db-'+dow+' .day-block-hdr span:last-child');
+  var hdr=document.querySelector('#db-'+dow+' .day-hdr span:last-child');
   if(hdr)hdr.textContent=(times.length||'nenhum')+' horário'+(times.length!==1?'s':'');
 }
 function addSlot(dow){
@@ -409,12 +377,12 @@ function addSlot(dow){
   if(!slotState[dow].includes(val)){slotState[dow].push(val);slotState[dow].sort();}
   inp.value='';renderDaySlots(dow);inp.focus();
 }
-function removeSlot(dow,time){slotState[dow]=(slotState[dow]||[]).filter(function(t){return t!==time;});renderDaySlots(dow);}
+function removeSlot(dow,t){slotState[dow]=(slotState[dow]||[]).filter(function(x){return x!==t;});renderDaySlots(dow);}
 function readSlots(){var out=[];WEEKDAYS.forEach(function(d){(slotState[d.d]||[]).forEach(function(t){out.push({day:d.d,time:t});});});return out;}
 
-// ── MODAL ──
-function openModalAdd(){editId=null;document.getElementById('modal-ttl').textContent='Adicionar CSM';['m-name','m-email','m-ics'].forEach(function(i){document.getElementById(i).value='';});document.getElementById('m-proj').value='0';document.getElementById('modal-err').style.display='none';buildSlotGrid([]);showEl('csm-modal');}
-function openModalEdit(id){var c=cfg.csms.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('modal-ttl').textContent='Editar CSM – '+c.name;document.getElementById('m-name').value=c.name;document.getElementById('m-email').value=c.email;document.getElementById('m-ics').value=c.ics||'';document.getElementById('m-proj').value=c.projects||0;document.getElementById('modal-err').style.display='none';buildSlotGrid(c.slots||[]);showEl('csm-modal');}
+// ── ADMIN: MODAL ───────────────────────
+function openAdd(){editId=null;document.getElementById('modal-ttl').textContent='Adicionar CSM';['m-name','m-email','m-ics'].forEach(function(i){document.getElementById(i).value='';});document.getElementById('m-proj').value='0';document.getElementById('modal-err').style.display='none';buildSlotGrid([]);showEl('csm-modal');}
+function openEdit(id){var c=cfg.csms.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('modal-ttl').textContent='Editar – '+c.name;document.getElementById('m-name').value=c.name;document.getElementById('m-email').value=c.email;document.getElementById('m-ics').value=c.ics||'';document.getElementById('m-proj').value=c.projects||0;document.getElementById('modal-err').style.display='none';buildSlotGrid(c.slots||[]);showEl('csm-modal');}
 function closeModal(){hideEl('csm-modal');editId=null;}
 function bgClose(e){if(e.target.id==='csm-modal')closeModal();}
 async function saveCSM(){
@@ -426,137 +394,70 @@ async function saveCSM(){
   var merr=document.getElementById('modal-err');
   if(!name||!email){merr.textContent='Nome e e-mail são obrigatórios.';merr.style.display='block';return;}
   merr.style.display='none';
-  var btnSave=document.querySelector('#csm-modal .btn.btn-sm.btn-primary');
-  if(btnSave){btnSave.disabled=true;btnSave.textContent='Salvando...';}
+  var bs=document.getElementById('btn-save-csm');bs.disabled=true;bs.textContent='Salvando...';
   if(editId){var c=cfg.csms.find(function(x){return x.id===editId;});if(c){c.name=name;c.email=email;c.ics=ics;c.projects=proj;c.slots=slots;}}
   else cfg.csms.push({id:uid(),name:name,email:email,ics:ics,projects:proj,slots:slots});
-  var ok=await saveCfg();
-  if(btnSave){btnSave.disabled=false;btnSave.textContent='Salvar';}
-  if(ok){renderTable();closeModal();toast(editId?'✅ CSM atualizado!':'✅ CSM adicionado!');}
-  else{
-    // Reverte a mudança local se não salvou
-    await loadCfg();renderTable();
-    merr.textContent='⚠️ Erro ao salvar. Verifique sua conexão e tente novamente.';
-    merr.style.display='block';
-  }
+  var r=await saveCfg();
+  bs.disabled=false;bs.textContent='Salvar';
+  if(r.ok){renderTable();closeModal();toast(r.server?'✅ Salvo e sincronizado!':'✅ Salvo localmente.');}
+  else{await loadCfg();renderTable();merr.textContent='⚠️ Erro ao salvar.';merr.style.display='block';}
 }
 
-// ── UNION MAP ──
-function unionMap(){
-  var m={};
-  cfg.csms.forEach(function(c){(c.slots||[]).forEach(function(s){if(!m[s.day])m[s.day]={};m[s.day][s.time]=true;});});
-  return m;
+// ── PUBLIC: CALENDAR ───────────────────
+async function loadAvailability(){
+  document.getElementById('cal-wrap').innerHTML='<div class="loading">⏳ Verificando disponibilidade...</div>';
+  hideEl('tw');selDate='';selTime='';document.getElementById('btn1').disabled=true;
+  availDays={};
+  try{
+    var sorted=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
+    var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({csms:sorted,duration:DURATION})});
+    if(r.ok){
+      var d=await r.json();
+      if(d.days){d.days.forEach(function(x){availDays[x.date]=(x.slots||[]).map(function(s){return s.time;});});}
+    }
+  }catch(e){console.error('Erro ao verificar disponibilidade:',e);}
+  renderCal();
 }
 
-// ── CALENDAR: verifica ICS por dia antes de colorir ──
-async function checkAndRenderMonth(){
+function renderCal(){
   document.getElementById('cal-lbl').textContent=MONTHS[cm].charAt(0).toUpperCase()+MONTHS[cm].slice(1)+' '+cy;
-  document.getElementById('cal-wrap').innerHTML="<div class='loading-cal'>⏳ Verificando disponibilidade...</div>";
-  hideEl('tw'); selDate=''; selTime=''; document.getElementById('btn1').disabled=true;
-
-  var minDate=new Date(Date.now()+48*3600*1000); minDate.setHours(0,0,0,0);
-  var dim=new Date(cy,cm+1,0).getDate();
-  var promises=[];
-
-  for(var d=1;d<=dim;d++){
-    var dt=new Date(cy,cm,d);
-    if(dt<minDate) continue;
-    var dow=dt.getDay();
-    var iso=cy+'-'+pad(cm+1)+'-'+pad(d);
-    var csmsNoDia=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow;});});
-    if(!csmsNoDia.length) continue;
-
-    (function(iso2,dow2,csms2){
-      var dayChecks=csms2.map(function(csm){
-        var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow2;});
-        if(!csm.ics) return Promise.resolve(false); // sem ICS = não exibir
-        return fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso2,duration:DURATION,slots:slotsCSM,slaHours:0})})
-          .then(function(r){return r.json();})
-          .then(function(data){return(data.slots||[]).length>0;})
-          .catch(function(){return false;}); // erro = não exibir
-      });
-      promises.push(Promise.all(dayChecks).then(function(res){return{iso:iso2,free:res.some(function(f){return f;})};}));
-    })(iso,dow,csmsNoDia);
-  }
-
-  var results=await Promise.all(promises);
-  var fd={};
-  results.forEach(function(r){if(r.free)fd[r.iso]=true;});
-  currentFreeDays=fd;
-  renderCal(fd);
-}
-
-function renderCal(fd){
-  var first=new Date(cy,cm,1).getDay();
-  var days=new Date(cy,cm+1,0).getDate();
-  var grid=document.createElement('div'); grid.className='cal';
+  var first=new Date(cy,cm,1).getDay(), days=new Date(cy,cm+1,0).getDate();
+  var grid=document.createElement('div');grid.className='cal';
   DS.forEach(function(d){var h=document.createElement('div');h.style.cssText='text-align:center;font-size:11px;font-weight:700;color:#6b7280;padding:4px 0';h.textContent=d;grid.appendChild(h);});
-  for(var i=0;i<first;i++) grid.appendChild(document.createElement('div'));
+  for(var i=0;i<first;i++)grid.appendChild(document.createElement('div'));
   for(var d=1;d<=days;d++){
     var iso=cy+'-'+pad(cm+1)+'-'+pad(d);
-    var dt=new Date(cy,cm,d);
-    var avail=fd[iso]===true;
+    var avail=!!availDays[iso];
     var isSel=iso===selDate;
     var cell=document.createElement('div');
     cell.className='cc'+(isSel?' sl':avail?' av':' em');
     cell.textContent=d;
-    if(avail)(function(i2,dw){cell.addEventListener('click',function(){pickDate(i2,dw);});})(iso,dt.getDay());
+    if(avail)(function(i2){cell.addEventListener('click',function(){pickDate(i2);});})(iso);
     grid.appendChild(cell);
   }
-  var w=document.getElementById('cal-wrap'); w.innerHTML=''; w.appendChild(grid);
+  var w=document.getElementById('cal-wrap');w.innerHTML='';w.appendChild(grid);
 }
 
-// ── PICK DATE: mostra só horários livres ──
-async function pickDate(iso,dow){
-  selDate=iso; selTime=''; document.getElementById('btn1').disabled=true;
-  renderCal(currentFreeDays);
+function pickDate(iso){
+  selDate=iso;selTime='';document.getElementById('btn1').disabled=true;
+  renderCal();
+  var times=availDays[iso]||[];
   showEl('tw');
   var dt=new Date(iso+'T12:00:00');
-  document.getElementById('tl').textContent='Horários – '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
-  var tc=document.getElementById('times');
-  tc.innerHTML='<span style="color:#6b7280;font-size:13px">⏳ Verificando agenda...</span>';
-
-  var csmsNoDia=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow;});});
-  var livresSet={};
-  await Promise.all(csmsNoDia.map(async function(csm){
-    var slotsCSM=(csm.slots||[]).filter(function(s){return s.day===dow;});
-    if(!csm.ics) return; // sem ICS = não exibir horários
-    try{
-      var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({csmEmail:csm.email,icsUrl:csm.ics,date:iso,duration:DURATION,slots:slotsCSM,slaHours:0})});
-      var data=await r.json();
-      (data.slots||[]).forEach(function(s){livresSet[s.time]=true;});
-    }catch(e){} // erro = não exibir o slot
-  }));
-
-  var livres=Object.keys(livresSet).sort();
-  tc.innerHTML='';
-  if(!livres.length){tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário disponível. Escolha outra data.</span>';return;}
-  livres.forEach(function(t){
-    var b=document.createElement('div'); b.className='ts'; b.dataset.time=t;
+  document.getElementById('tl').textContent='Horários – '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
+  var tc=document.getElementById('times');tc.innerHTML='';
+  if(!times.length){tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário. Escolha outra data.</span>';return;}
+  times.forEach(function(t){
+    var b=document.createElement('div');b.className='ts';b.dataset.time=t;
     b.innerHTML=t+' <span style="font-size:11px;opacity:.7">até '+addMin(t,DURATION)+'</span>';
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.ts').forEach(function(x){x.classList.remove('sel');});
-      this.classList.add('sel'); selTime=this.dataset.time; document.getElementById('btn1').disabled=false;
-    });
+    b.addEventListener('click',function(){document.querySelectorAll('.ts').forEach(function(x){x.classList.remove('sel');});this.classList.add('sel');selTime=this.dataset.time;document.getElementById('btn1').disabled=false;});
     tc.appendChild(b);
   });
 }
 
-// ── ASSIGN CSM ──
-function assignCSM(dow,time){
-  var avail=cfg.csms.filter(function(c){return(c.slots||[]).some(function(s){return s.day===dow&&s.time===time;});});
-  if(!avail.length) avail=[...cfg.csms];
-  return avail.sort(function(a,b){return a.projects-b.projects;})[0];
-}
-
-// ── CONFIRM ──
-// Proteção contra duplo envio
-var _submitting = false;
-
+// ── PUBLIC: CONFIRM ────────────────────
 async function confirmar(){
-  if(_submitting) return;
+  if(_submitting)return;
   var s=document.getElementById('fi-school').value.trim();
   var c=document.getElementById('fi-contact').value.trim();
   var e=document.getElementById('fi-email').value.trim();
@@ -565,93 +466,87 @@ async function confirmar(){
   var er=document.getElementById('ferr');
   if(!s||!c||!e||!p){er.style.display='block';return;}
   er.style.display='none';
-  _submitting = true;
-  var btn=document.getElementById('btn2'); btn.disabled=true; btn.textContent='Verificando disponibilidade...';
-  var dt=new Date(selDate+'T12:00:00');
-  var dow=dt.getDay();
-  var candidates=cfg.csms
-    .filter(function(x){return(x.slots||[]).some(function(sl){return sl.day===dow&&sl.time===selTime;});})
-    .sort(function(a,b){return a.projects-b.projects;})
-    .map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
-  if(!candidates.length)
-    candidates=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;})
-      .map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects};});
+  _submitting=true;
+  var btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Aguarde...';
+
+  // Envia lista de CSMs ordenada por projetos — n8n escolhe o primeiro livre
+  var sortedCsms=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
 
   var payload={
-    date:selDate, time:selTime, endTime:addMin(selTime,DURATION),
-    motivo:selMotivo,
-    meetingType:MEETING_TYPE, duration:DURATION,
-    timezone:"America/Sao_Paulo",
-    timezoneLabel:"Horário de Brasília (GMT-3)",
-    sheetId:SHEET,
+    date:selDate, time:selTime, motivo:selMotivo, duration:DURATION,
     school:s, contact:c, email:e, phone:p, guests:g,
-    csmCandidates:candidates
+    csms:sortedCsms.map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects,slots:x.slots};})
   };
+
   try{
-    btn.textContent='Agendando...';
     var r=await fetch(WA,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     var resp=await r.json().catch(function(){return{};});
-    if(resp.status==='unavailable'){er.textContent='Nenhum CSM disponível neste horário. Por favor, escolha outro.';er.style.display='block';btn.disabled=false;btn.textContent='Confirmar agendamento';return;}
-    if(resp.csmId){var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});if(idx>=0){cfg.csms[idx].projects++;await saveCfg();}}
+
+    if(!resp||resp.success===false||resp.status==='error'||resp.status==='unavailable'){
+      er.textContent=resp.message||'Nenhum CSM disponível neste horário. Escolha outro.';
+      er.style.display='block';_submitting=false;btn.disabled=false;btn.textContent='Confirmar agendamento';return;
+    }
+
+    // Incrementa projeto do CSM atribuído
+    if(resp.csmId){
+      var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});
+      if(idx>=0){cfg.csms[idx].projects++;await saveCfg();}
+    }
+
     showPub('succ');
-    var csmName=resp.csm||'seu CSM';
-    var ml=resp.meetLink;
-    var meetEl='';
-    if(ml){meetEl="<div class='meet-box'><div class='meet-box-ttl'>🎥 Link da reunião</div><div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span><button class='copy-btn' id='copy-btn'>Copiar</button></div></div>";}
+    var csmNm=resp.csm||'seu CSM';
+    var ml=resp.meetLink||null;
+    var dt=new Date(selDate+'T12:00:00');
+    var meetEl=ml
+      ?"<div class='meet-box'><div class='meet-ttl'>🎥 Link da reunião</div><div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span><button class='copy-btn' id='copy-btn'>Copiar</button></div></div>"
+      :"<div style='margin-top:10px;font-size:12px;color:#6b7280'>O link do Meet será enviado por e-mail.</div>";
     document.getElementById('sd').innerHTML=
-      '<div style="margin-bottom:4px"><strong>Reunião de '+selMotivo+'</strong> com <strong>'+csmName+'</strong></div>'
-      +'<div style="color:#6b7280">📅 '+DL[dow]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+'</div>'
-      +'<div style="color:#6b7280">🕐 '+selTime+' – '+addMin(selTime,DURATION)
-      +' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'+meetEl;
+      '<div style="margin-bottom:4px"><strong>Reunião de '+selMotivo+'</strong> com <strong>'+csmNm+'</strong></div>'
+      +'<div style="color:#6b7280">📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+'</div>'
+      +'<div style="color:#6b7280">🕐 '+selTime+' – '+addMin(selTime,DURATION)+' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'
+      +meetEl;
     var cb=document.getElementById('copy-btn');
     if(cb&&ml)cb.addEventListener('click',function(){navigator.clipboard.writeText(ml).then(function(){cb.textContent='Copiado!';setTimeout(function(){cb.textContent='Copiar';},2000);});});
   }catch(err){
-    _submitting = false;
-    er.textContent='Erro ao enviar. Tente novamente.';er.style.display='block';btn.disabled=false;btn.textContent='Confirmar agendamento';
+    er.textContent='Erro de conexão. Tente novamente.';er.style.display='block';
+    _submitting=false;btn.disabled=false;btn.textContent='Confirmar agendamento';
   }
 }
 
-// ── INIT ──
+// ── INIT ───────────────────────────────
 document.addEventListener('DOMContentLoaded',async function(){
   await loadCfg();
 
-  // Motivo selection
+  // Motivo
   document.querySelectorAll('#motivo-list .tc').forEach(function(el){
     el.addEventListener('click',function(){
       document.querySelectorAll('#motivo-list .tc').forEach(function(x){x.classList.remove('sel');});
-      el.classList.add('sel');
-      selMotivo=el.dataset.motivo;
+      el.classList.add('sel');selMotivo=el.dataset.motivo;
       document.getElementById('btn0').disabled=false;
     });
   });
 
   document.getElementById('btn0').addEventListener('click',function(){
-    if(this.disabled) return;
+    if(this.disabled)return;
     showPub('s1');
-    checkAndRenderMonth();
+    cy=new Date().getFullYear();cm=new Date().getMonth();
+    loadAvailability();
   });
 
-  document.getElementById('back1').addEventListener('click',function(){
-    showPub('s0');
-    selDate=''; selTime='';
-  });
-
+  document.getElementById('back1').addEventListener('click',function(){showPub('s0');selDate='';selTime='';});
   document.getElementById('btn1').addEventListener('click',function(){
-    if(this.disabled) return;
+    if(this.disabled)return;
     showPub('s2');
     var dt=new Date(selDate+'T12:00:00');
-    document.getElementById('ibar').textContent=
-      '📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy
-      +' às '+selTime+' · Reunião de '+selMotivo+' (Horário de Brasília)';
+    document.getElementById('ibar').textContent='📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+' às '+selTime+' · Reunião de '+selMotivo+' (Horário de Brasília)';
   });
-
   document.getElementById('btn2').addEventListener('click',confirmar);
   document.getElementById('back2').addEventListener('click',function(){showPub('s1');});
-  document.getElementById('prev-m').addEventListener('click',function(){cm--;if(cm<0){cm=11;cy--;}checkAndRenderMonth();});
-  document.getElementById('next-m').addEventListener('click',function(){cm++;if(cm>11){cm=0;cy++;}checkAndRenderMonth();});
+  document.getElementById('prev-m').addEventListener('click',function(){cm--;if(cm<0){cm=11;cy--;}availDays={};loadAvailability();});
+  document.getElementById('next-m').addEventListener('click',function(){cm++;if(cm>11){cm=0;cy++;}availDays={};loadAvailability();});
   document.getElementById('succ-btn').addEventListener('click',function(){location.reload();});
   document.getElementById('adm-pw').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
-  if(location.hash==='#admin') goAdmin();
+  if(location.hash==='#admin')goAdmin();
 });
 </script>
 </body>
