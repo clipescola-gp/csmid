@@ -8,37 +8,40 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Nunito,sans-serif;background:#f0f2f7;min-height:100vh}
 .hd{display:none!important}
-/* Header */
 .hdr{background:#22367b;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:relative}
 .hdr img{height:36px;object-fit:contain}
 .badge{background:rgba(255,202,38,.15);border:1px solid rgba(255,202,38,.4);color:#ffca26;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
-#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.2);cursor:pointer;user-select:none}
-/* Hero */
+#admin-gear{position:absolute;right:12px;bottom:6px;font-size:11px;color:rgba(255,255,255,.2);cursor:pointer;user-select:none;display:block}
 .hero{background:linear-gradient(135deg,#22367b 0%,#1a2d6b 100%);padding:48px 32px 56px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,202,38,.07);top:-80px;right:-60px}
 .hero-tag{display:inline-block;background:rgba(255,202,38,.15);border:1px solid rgba(255,202,38,.35);color:#ffca26;font-size:12px;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
-.hero h1{color:#fff;font-size:28px;font-weight:800;margin-bottom:8px}
+.hero h1{color:#fff;font-size:28px;font-weight:800;margin-bottom:4px}
+.hero .hero-sub{color:rgba(255,255,255,.6);font-size:14px;margin-bottom:10px}
 .hero p{color:rgba(255,255,255,.75);font-size:15px;max-width:480px;margin:0 auto 20px}
 .hero-meta{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:8px 20px;color:#fff;font-size:13px;font-weight:700}
-/* Layout */
+.hero-steps{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:20px}
+.hero-step{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:7px 16px;color:rgba(255,255,255,.85);font-size:12px;font-weight:700}
+.hs-n{background:#ffca26;color:#22367b;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
 .wrap{max-width:700px;margin:0 auto;padding:28px 16px}
 .card{background:#fff;border-radius:12px;padding:22px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .ttl{font-size:15px;font-weight:800;color:#22367b;margin-bottom:14px}
-/* Type cards */
 .tc{display:flex;align-items:center;padding:14px 16px;border-radius:10px;margin-bottom:8px;border:2px solid #e5e7eb;cursor:pointer;user-select:none;transition:all .15s}
 .tc:hover{border-color:#22367b;background:#eff6ff}
 .tc.sel{border-color:#22367b;background:#eff6ff}
 .tc .tn{font-weight:700;font-size:14px;color:#374151}
+.tc .td{font-size:12px;color:#6b7280;margin-left:8px}
 .tc.sel .tn{color:#22367b}
-/* Inputs */
+.tc-desc{font-size:12px;color:#6b7280;margin-top:4px;line-height:1.5}
+.tc.sel .tc-desc{color:#4b6cb7}
 label{font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
-input,select{width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;font-family:inherit;outline:none;color:#111827}
-input:focus,select:focus{border-color:#22367b}
-/* Buttons */
+input,select,textarea{width:100%;padding:9px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;font-family:inherit;outline:none;color:#111827;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:#22367b}
+input[readonly]{background:#f9fafb;color:#6b7280;cursor:default}
 .btn{padding:11px 22px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;background:#22367b;color:#fff;transition:opacity .15s}
 .btn:hover{opacity:.88}.btn:disabled{opacity:.4;cursor:default}
+.btn-outline{padding:10px 20px;border-radius:8px;border:1.5px solid #22367b;background:#fff;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;color:#22367b;transition:all .15s}
+.btn-outline:hover{background:#eff6ff}
 .back{padding:10px 20px;border-radius:8px;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;color:#6b7280}
-/* Calendar */
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .cc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:600;cursor:default;border:2px solid transparent;user-select:none}
 .av{background:#f0fdf4;color:#166534;cursor:pointer;font-weight:700}.av:hover{background:#dcfce7}
@@ -47,19 +50,13 @@ input:focus,select:focus{border-color:#22367b}
 .cnav{display:flex;gap:6px;align-items:center}
 .cnav button{padding:5px 10px;border-radius:6px;border:1px solid #e5e7eb;background:#f9fafb;cursor:pointer;font-family:inherit;font-size:14px}
 .tz-note{font-size:11px;font-weight:700;background:#fef9c3;border:1px solid #fde047;color:#713f12;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
-/* Time slots */
 .ts{padding:9px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;background:#f0f9ff;color:#0369a1;border:2px solid #bae6fd;font-family:inherit;user-select:none;display:inline-block;margin:4px}
 .ts.sel{background:#22367b;color:#fff;border-color:#22367b}
-/* Loading */
 .loading{text-align:center;padding:32px;color:#6b7280;font-size:14px}
-/* Info bar */
 .info-bar{background:#eff6ff;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#22367b;font-weight:600}
-/* Form */
 .frow{display:flex;flex-direction:column;gap:12px}
 .ferr{color:#dc2626;font-size:13px;margin-top:10px;display:none}
-/* Success */
 .succ-box{background:#ecfdf5;border:2px solid #6ee7b7;border-radius:12px;padding:32px;text-align:center}
-/* Meet link */
 .meet-box{margin-top:14px;background:#eff6ff;border-radius:8px;padding:12px 14px}
 .meet-ttl{font-weight:800;color:#22367b;font-size:13px;margin-bottom:8px}
 .meet-row{display:flex;align-items:center;gap:8px}
@@ -67,8 +64,20 @@ input:focus,select:focus{border-color:#22367b}
 .copy-btn{flex-shrink:0;padding:6px 14px;border-radius:6px;border:1.5px solid #d3e2f2;background:#fff;color:#22367b;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
 /* Admin */
 .adm-wrap{max-width:940px;margin:0 auto;padding:24px 16px}
-.adm-card{background:#fff;border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.adm-ttl{font-size:16px;font-weight:800;color:#22367b;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.adm-header{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:4px;box-shadow:0 1px 3px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.adm-header-info{font-size:14px;font-weight:700;color:#22367b}
+.adm-status{display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.tab-nav{display:flex;border-bottom:2px solid #e5e7eb;margin-bottom:0;background:#fff;border-radius:12px 12px 0 0;padding:0 16px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow-x:auto}
+.tab-btn{padding:14px 18px;font-size:13px;font-weight:700;color:#6b7280;background:none;border:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit;white-space:nowrap;transition:color .15s}
+.tab-btn:hover{color:#22367b}
+.tab-btn.active{color:#22367b;border-bottom-color:#22367b}
+.tab-panel{background:#fff;border-radius:0 0 12px 12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);display:none}
+.tab-panel.active{display:block}
+.section-ttl{font-size:14px;font-weight:800;color:#22367b;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #f3f4f6}
+.adm-msg-bar{border-radius:8px;padding:10px 16px;font-size:13px;font-weight:700;margin-top:12px;display:none}
+.adm-msg-bar.ok{background:#ecfdf5;color:#057a55;border:1px solid #6ee7b7}
+.adm-msg-bar.err{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5}
+/* Tabela CSMs */
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #f3f4f6}
 .tbl td{padding:11px 12px;font-size:13px;border-bottom:1px solid #f9fafb;vertical-align:middle}
@@ -82,6 +91,9 @@ input:focus,select:focus{border-color:#22367b}
 .bg{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
 .ics-ok{font-size:11px;color:#166534;font-weight:700}
 .ics-no{font-size:11px;color:#dc2626;font-weight:700}
+/* Tipos de reunião admin */
+.mt-row{border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:10px;background:#fafafa}
+.mt-fields{display:grid;grid-template-columns:1fr 50px auto;gap:10px;align-items:start;margin-bottom:10px}
 /* Modal */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
 .modal{background:#fff;border-radius:14px;padding:28px;width:100%;max-width:620px;margin:auto}
@@ -97,44 +109,44 @@ input:focus,select:focus{border-color:#22367b}
 .sadd input{width:72px;padding:4px 8px;border:1.5px solid #d1d5db;border-radius:7px;font-size:12px;font-family:inherit;text-align:center}
 .sadd input:focus{border-color:#22367b;outline:none}
 .sadd button{padding:4px 10px;background:#22367b;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.info-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#78350f;line-height:1.6}
 /* Login */
 .login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 64px);padding:24px}
 .login-box{background:#fff;border-radius:14px;padding:32px;width:100%;max-width:340px;box-shadow:0 4px 20px rgba(0,0,0,.1);text-align:center}
-/* Toast */
 .toast{position:fixed;bottom:20px;right:20px;background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:700;z-index:300;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-.info-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 16px;font-size:12px;color:#78350f;line-height:1.6}
-@media(max-width:560px){.hero{padding:32px 16px 44px}.card,.adm-card,.modal{padding:16px}.tbl td,.tbl th{padding:8px}}
+@media(max-width:600px){.hero{padding:32px 16px 44px}.tab-panel,.card{padding:14px}.mt-fields{grid-template-columns:1fr 44px auto}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
-  <img src="https://i.imgur.com/IVPOWqc.png" alt="ClipEscola" onerror="this.style.display='none'">
+  <img src="https://i.imgur.com/IVPOWqc.png" alt="ClipEscola" onerror="this.style.display='none'" style="height:36px;object-fit:contain">
   <div class="badge" id="hdr-badge">CS Mid Touch</div>
   <span id="admin-gear" onclick="goAdmin()" title="Retaguarda">⚙</span>
 </div>
 
-<!-- ═══ PÚBLICO ═══ -->
+<!-- ══════════════════════ PÚBLICO ══════════════════════ -->
 <div id="view-public">
-  <div class="hero">
+  <div class="hero" id="hero-area">
     <div class="hero-tag">Agendamentos ClipEscola</div>
     <h1>CS Mid Touch</h1>
+    <div class="hero-sub">Equipe de Customer Success</div>
     <p>Agende sua reunião de acompanhamento com o nosso time.</p>
-    <div class="hero-meta">🕐 1 hora &nbsp;·&nbsp; 🌎 Horário de Brasília</div>
+    <div class="hero-meta" id="hero-meta">🕐 1 hora &nbsp;·&nbsp; 🌎 Horário de Brasília</div>
+    <div class="hero-steps">
+      <div class="hero-step"><span class="hs-n">1</span><span>Escolha o tipo de reunião</span></div>
+      <div class="hero-step"><span class="hs-n">2</span><span>Selecione data e horário</span></div>
+      <div class="hero-step"><span class="hs-n">3</span><span>Preencha seus dados e confirme</span></div>
+    </div>
   </div>
   <div class="wrap">
 
-    <!-- Step 0: Motivo -->
+    <!-- Step 0: Tipo de reunião -->
     <div id="s0" class="card">
-      <div class="ttl">Qual o motivo da reunião?</div>
-      <div id="motivo-list">
-        <div class="tc" data-motivo="Treinamento"><span class="tn">Treinamento</span></div>
-        <div class="tc" data-motivo="Tira-dúvidas"><span class="tn">Tira-dúvidas</span></div>
-        <div class="tc" data-motivo="Alinhamentos"><span class="tn">Alinhamentos</span></div>
-        <div class="tc" data-motivo="Validação de Integração"><span class="tn">Validação de Integração</span></div>
-      </div>
+      <div class="ttl">Qual o tipo de reunião?</div>
+      <div id="type-list"></div>
+      <div id="no-types" class="hd" style="color:#6b7280;font-size:14px;padding:12px 0">Nenhum tipo de reunião configurado.</div>
       <button class="btn" id="btn0" disabled style="margin-top:12px">Próximo →</button>
     </div>
 
@@ -189,7 +201,7 @@ input:focus,select:focus{border-color:#22367b}
   </div>
 </div>
 
-<!-- ═══ ADMIN ═══ -->
+<!-- ══════════════════════ ADMIN ══════════════════════ -->
 <div id="view-admin" class="hd">
   <div class="login-wrap" id="adm-login">
     <div class="login-box">
@@ -201,11 +213,24 @@ input:focus,select:focus{border-color:#22367b}
       <div id="pw-err" style="color:#dc2626;font-size:12px;margin-top:8px;display:none">Senha incorreta.</div>
     </div>
   </div>
+
   <div id="adm-panel" class="hd">
     <div class="adm-wrap">
-      <div class="adm-card">
-        <div class="adm-ttl">
-          <span>👥 Equipe de CSMs</span>
+      <div class="adm-header">
+        <div class="adm-header-info">Configurações — <span>CS Mid Touch</span></div>
+        <span class="adm-status">● Ativo</span>
+      </div>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('csms')"   id="tab-csms">👥 Equipe de CSMs</button>
+        <button class="tab-btn"        onclick="switchTab('tipos')"  id="tab-tipos">🎯 Tipos de Reunião</button>
+        <button class="tab-btn"        onclick="switchTab('config')" id="tab-config">⚙️ Configurações</button>
+      </div>
+
+      <!-- Aba: CSMs -->
+      <div class="tab-panel active" id="panel-csms">
+        <div class="section-ttl">👥 Equipe de CSMs</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
           <button class="bsm bp" onclick="openAdd()">+ Adicionar CSM</button>
         </div>
         <div style="overflow-x:auto">
@@ -214,14 +239,44 @@ input:focus,select:focus{border-color:#22367b}
             <tbody id="csm-tbody"></tbody>
           </table>
         </div>
+        <div class="info-box" style="margin-top:16px">
+          <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:4px">⚖️ Distribuição Automática</strong>
+          A cada agendamento, o n8n verifica as agendas e atribui o CSM com <strong>menor número de projetos</strong> que esteja livre no horário escolhido. O contador é incrementado automaticamente após cada confirmação.
+        </div>
+        <div class="adm-msg-bar" id="msg-csms"></div>
       </div>
-      <div class="adm-card info-box">
-        <strong style="font-size:13px;color:#92400e;display:block;margin-bottom:4px">⚖️ Distribuição Automática</strong>
-        A cada agendamento, o n8n verifica as agendas e atribui o CSM com <strong>menor número de projetos</strong> que esteja livre no horário escolhido. O contador é incrementado automaticamente após cada confirmação.
+
+      <!-- Aba: Tipos de Reunião -->
+      <div class="tab-panel" id="panel-tipos">
+        <div class="section-ttl">🎯 Tipos de Reunião</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:16px">Todos os tipos têm duração de <strong>1 hora</strong> e seguem a disponibilidade de horários de cada CSM.</div>
+        <div id="mt-list"></div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn-outline" onclick="addMeetingType()">+ Adicionar tipo</button>
+          <button class="btn" onclick="salvarTipos()">💾 Salvar</button>
+        </div>
+        <div class="adm-msg-bar" id="msg-tipos"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
+
+      <!-- Aba: Configurações -->
+      <div class="tab-panel" id="panel-config">
+        <div class="section-ttl">● Configurações do sistema</div>
+        <div class="frow">
+          <div><label>Webhook Verificar</label><input id="c-wv" readonly value="https://n8n.clipescola.com.br/webhook/verificar-mid-touch"></div>
+          <div><label>Webhook Agendar</label><input id="c-wa" readonly value="https://n8n.clipescola.com.br/webhook/agendar-mid-touch"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div><label>Duração (min)</label><input id="c-dur" type="number" value="60" readonly></div>
+            <div><label>Senha Admin</label><input id="c-pw" type="text" placeholder="clip2025"></div>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn" onclick="salvarConfig()">💾 Salvar</button>
+        </div>
+        <div class="adm-msg-bar" id="msg-config"></div>
+      </div>
+
+      <div style="margin-top:8px">
         <button class="back" onclick="goPublic()">← Voltar ao site</button>
-        <span style="font-size:11px;color:#9ca3af">Alterações salvas automaticamente</span>
       </div>
     </div>
   </div>
@@ -232,8 +287,8 @@ input:focus,select:focus{border-color:#22367b}
   <div class="modal">
     <div class="modal-ttl" id="modal-ttl">Adicionar CSM</div>
     <div class="frow" style="margin-bottom:20px">
-      <div><label>Nome *</label><input id="m-name" placeholder="Ex: Davi Morais"></div>
-      <div><label>E-mail Google *</label><input id="m-email" type="email" placeholder="davi.clipescola@gmail.com"></div>
+      <div><label>Nome *</label><input id="m-name" placeholder="Ex: Alini"></div>
+      <div><label>E-mail Google *</label><input id="m-email" type="email" placeholder="alini.clipescola@gmail.com"></div>
       <div>
         <label>URL ICS (Google Agenda)</label>
         <input id="m-ics" placeholder="https://calendar.google.com/calendar/ical/...">
@@ -256,7 +311,7 @@ input:focus,select:focus{border-color:#22367b}
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══ CONFIG ════════════════════════════
+// ═══ ENDPOINTS ════════════════════════════════════════════════════════════════
 var WV      = "https://n8n.clipescola.com.br/webhook/verificar-mid-touch";
 var WA      = "https://n8n.clipescola.com.br/webhook/agendar-mid-touch";
 var WC_GET  = "https://n8n.clipescola.com.br/webhook/config-mid-touch";
@@ -264,37 +319,103 @@ var WC_SAVE = "https://n8n.clipescola.com.br/webhook/config-mid-touch-save";
 var DURATION   = 60;
 var ADMIN_PW   = "clip2025";
 var STORAGE_KEY= "csm-mid-touch-v8";
+// ═════════════════════════════════════════════════════════════════════════════
+
+// Slots padrão segunda–sexta: 09:00, 11:00, 14:00, 15:30
+var DEFAULT_SLOTS = [
+  {day:1,time:"09:00"},{day:1,time:"11:00"},{day:1,time:"14:00"},{day:1,time:"15:30"},
+  {day:2,time:"09:00"},{day:2,time:"11:00"},{day:2,time:"14:00"},{day:2,time:"15:30"},
+  {day:3,time:"09:00"},{day:3,time:"11:00"},{day:3,time:"14:00"},{day:3,time:"15:30"},
+  {day:4,time:"09:00"},{day:4,time:"11:00"},{day:4,time:"14:00"},{day:4,time:"15:30"},
+  {day:5,time:"09:00"},{day:5,time:"11:00"},{day:5,time:"14:00"},{day:5,time:"15:30"}
+];
+
+var DEFAULT_CONFIG = {
+  csms: [
+    {
+      id:"csm-alini", name:"Alini",
+      email:"alini.clipescola@gmail.com",
+      ics:"https://calendar.google.com/calendar/ical/alini.clipescola%40gmail.com/public/basic.ics",
+      projects:0,
+      slots: JSON.parse(JSON.stringify(DEFAULT_SLOTS))
+    },
+    {
+      id:"csm-pollyanna", name:"Pollyanna",
+      email:"pollyanna.clipescola@gmail.com",
+      ics:"https://calendar.google.com/calendar/ical/pollyanna.clipescola%40gmail.com/public/basic.ics",
+      projects:0,
+      slots: JSON.parse(JSON.stringify(DEFAULT_SLOTS))
+    },
+    {
+      id:"csm-priscilla", name:"Priscilla",
+      email:"priscillasouza.clipescola@gmail.com",
+      ics:"https://calendar.google.com/calendar/ical/priscillasouza.clipescola%40gmail.com/public/basic.ics",
+      projects:0,
+      slots: JSON.parse(JSON.stringify(DEFAULT_SLOTS))
+    },
+    {
+      id:"csm-renan", name:"Renan",
+      email:"renan.clipescola@gmail.com",
+      ics:"https://calendar.google.com/calendar/ical/renan.clipescola%40gmail.com/public/basic.ics",
+      projects:0,
+      slots: JSON.parse(JSON.stringify(DEFAULT_SLOTS))
+    }
+  ],
+  meetingTypes: [
+    {
+      id:"mt-treinamento", name:"Treinamento",
+      active:true,
+      desc:"Treinamentos para novos colaboradores, módulos extra, recursos novos..."
+    },
+    {
+      id:"mt-validacao", name:"Validação de Integrações",
+      active:true,
+      desc:"Integração está pronta, reunião para realizar a validação e liberação da integração."
+    },
+    {
+      id:"mt-alinhamentos", name:"Alinhamentos",
+      active:true,
+      desc:"Para alinhamentos gerais, como: organização de projetos, cronogramas, estratégias..."
+    },
+    {
+      id:"mt-assistencia", name:"Assistência",
+      active:true,
+      desc:"Para assistências gerais como: usabilidade, recursos extras, configurações..."
+    }
+  ]
+};
+
+var cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+var availDays={};
+var cy=new Date().getFullYear(), cm=new Date().getMonth();
+var selDate='', selTime='', selMotivo='', selMotivoName='';
+var editId=null, slotState={}, _submitting=false;
 
 var MONTHS=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 var DS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 var DL=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
 var WEEKDAYS=[{n:'Seg',d:1},{n:'Ter',d:2},{n:'Qua',d:3},{n:'Qui',d:4},{n:'Sex',d:5}];
-// ═══════════════════════════════════════
 
-// STATE
-var cfg={csms:[]};
-var availDays={};   // {date: [time, ...]} — from n8n verificar-mid-touch
-var cy=new Date().getFullYear(), cm=new Date().getMonth();
-var selDate='', selTime='', selMotivo='';
-var editId=null, slotState={}, _submitting=false;
-
-// ── UTILS ──────────────────────────────
-function uid(){return 'csm'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+function uid(){return 'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
 function pad(n){return ('0'+n).slice(-2);}
 function addMin(t,m){var p=t.split(':'),v=+p[0]*60+ +p[1]+m;return pad(Math.floor(v/60))+':'+pad(v%60);}
+function escH(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toast(msg){var el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2500);}
 function showEl(id){document.getElementById(id).classList.remove('hd');}
 function hideEl(id){document.getElementById(id).classList.add('hd');}
+function showPub(id){['s0','s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});document.getElementById(id).classList.remove('hd');}
+function showMsg(id,msg,isOk){var el=document.getElementById(id);el.textContent=msg;el.className='adm-msg-bar '+(isOk?'ok':'err');el.style.display='block';setTimeout(function(){el.style.display='none';},4000);}
 
-// ── STORAGE ────────────────────────────
+// ── CONFIG ───────────────────────────────────────────────────────────────────
 async function loadCfg(){
   try{
     var r=await fetch(WC_GET,{cache:'no-store'});
-    if(r.ok){var d=await r.json();if(d&&Array.isArray(d.csms)){cfg=d;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}return;}}
+    if(r.ok){var d=await r.json();if(d&&Array.isArray(d.csms)){cfg=d;if(!cfg.meetingTypes||!cfg.meetingTypes.length)cfg.meetingTypes=DEFAULT_CONFIG.meetingTypes;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));}catch(e){}return;}}
   }catch(e){console.warn('n8n config indisponível:',e);}
-  try{var c=localStorage.getItem(STORAGE_KEY);if(c){cfg=JSON.parse(c);return;}}catch(e){}
-  cfg={csms:[]};
+  try{var c=localStorage.getItem(STORAGE_KEY);if(c){var p=JSON.parse(c);if(p&&Array.isArray(p.csms)){cfg=p;if(!cfg.meetingTypes||!cfg.meetingTypes.length)cfg.meetingTypes=DEFAULT_CONFIG.meetingTypes;return;}}}catch(e){}
+  cfg=JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 }
+
 async function saveCfg(){
   var lok=false,sok=false;
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));lok=true;}catch(e){}
@@ -305,25 +426,35 @@ async function saveCfg(){
   return {ok:lok||sok,server:sok};
 }
 
-// ── ROUTING ────────────────────────────
-function showPub(id){['s0','s1','s2','succ'].forEach(function(x){document.getElementById(x).classList.add('hd');});document.getElementById(id).classList.remove('hd');}
-function goAdmin(){hideEl('view-public');showEl('view-admin');document.getElementById('hdr-badge').textContent='Retaguarda';hideEl('admin-gear');}
-function goPublic(){hideEl('view-admin');showEl('view-public');document.getElementById('hdr-badge').textContent='CS Mid Touch';showEl('admin-gear');location.hash='';}
+// ── ROUTING ──────────────────────────────────────────────────────────────────
+function goAdmin(){hideEl('view-public');showEl('view-admin');document.getElementById('hdr-badge').textContent='Retaguarda';document.getElementById('admin-gear').style.visibility='hidden';}
+function goPublic(){hideEl('view-admin');showEl('view-public');document.getElementById('hdr-badge').textContent='CS Mid Touch';document.getElementById('admin-gear').style.visibility='visible';location.hash='';}
 
-// ── ADMIN: AUTH ────────────────────────
+function switchTab(t){
+  ['csms','tipos','config'].forEach(function(id){
+    document.getElementById('panel-'+id).classList.remove('active');
+    document.getElementById('tab-'+id).classList.remove('active');
+  });
+  document.getElementById('panel-'+t).classList.add('active');
+  document.getElementById('tab-'+t).classList.add('active');
+  if(t==='tipos') renderTipos();
+}
+
+// ── ADMIN: AUTH ──────────────────────────────────────────────────────────────
 function checkPw(){
-  if(document.getElementById('adm-pw').value===ADMIN_PW){hideEl('adm-login');showEl('adm-panel');renderTable();}
+  var stored=cfg.system&&cfg.system.adminPw?cfg.system.adminPw:ADMIN_PW;
+  if(document.getElementById('adm-pw').value===stored){hideEl('adm-login');showEl('adm-panel');renderTable();}
   else document.getElementById('pw-err').style.display='block';
 }
 
-// ── ADMIN: TABLE ───────────────────────
+// ── ADMIN: TABELA CSMs ────────────────────────────────────────────────────────
 function renderTable(){
   var sorted=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
   var tb=document.getElementById('csm-tbody');
   if(!sorted.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Nenhum CSM. Clique em "+ Adicionar CSM".</td></tr>';return;}
   tb.innerHTML=sorted.map(function(c,i){return '<tr>'
-    +'<td><strong>'+c.name+'</strong>'+(i===0?'<span class="next-b">Próximo</span>':'')+'</td>'
-    +'<td style="color:#6b7280;font-size:12px">'+c.email+'</td>'
+    +'<td><strong>'+escH(c.name)+'</strong>'+(i===0?'<span class="next-b">Próximo</span>':'')+'</td>'
+    +'<td style="color:#6b7280;font-size:12px">'+escH(c.email)+'</td>'
     +'<td>'+(c.ics?'<span class="ics-ok">✅ OK</span>':'<span class="ics-no">⚠ Sem ICS</span>')+'</td>'
     +'<td style="text-align:center">'
       +'<button class="bsm bg" style="padding:3px 9px" onclick="adjProj(\''+c.id+'\',-1)">−</button>'
@@ -336,13 +467,13 @@ function renderTable(){
     +'</td></tr>';
   }).join('');
 }
+
 async function adjProj(id,d){var c=cfg.csms.find(function(x){return x.id===id;});if(c){c.projects=Math.max(0,c.projects+d);var r=await saveCfg();renderTable();if(!r.ok)toast('⚠️ Erro ao salvar.');}}
 async function delCSM(id){if(!confirm('Excluir este CSM?'))return;cfg.csms=cfg.csms.filter(function(x){return x.id!==id;});var r=await saveCfg();if(r.ok){renderTable();toast('CSM removido.');}else{toast('⚠️ Erro ao excluir.');await loadCfg();renderTable();}}
 
-// ── ADMIN: SLOT EDITOR ─────────────────
+// ── ADMIN: SLOT EDITOR ────────────────────────────────────────────────────────
 function buildSlotGrid(existing){
-  existing=existing||[];
-  slotState={};
+  existing=existing||[];slotState={};
   WEEKDAYS.forEach(function(d){slotState[d.d]=[];});
   existing.forEach(function(s){if(slotState[s.day]&&!slotState[s.day].includes(s.time))slotState[s.day].push(s.time);});
   WEEKDAYS.forEach(function(d){slotState[d.d].sort();});
@@ -359,7 +490,7 @@ function renderSlotEditor(){
 function renderDaySlots(dow){
   var body=document.getElementById('dbb-'+dow);
   var times=slotState[dow]||[];
-  var html=times.map(function(t){return '<span class="stag">'+t+'<button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button></span>';}).join('');
+  var html=times.map(function(t){return '<span class="stag">'+t+' <span style="font-size:10px;opacity:.6">até '+addMin(t,DURATION)+'</span><button type="button" onclick="removeSlot('+dow+',\''+t+'\')">×</button></span>';}).join('');
   html+='<span class="sadd"><input type="text" id="si-'+dow+'" placeholder="09:30" maxlength="5" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addSlot('+dow+');}"><button type="button" onclick="addSlot('+dow+')">+</button></span>';
   body.innerHTML=html;
   var inp=document.getElementById('si-'+dow);
@@ -380,11 +511,12 @@ function addSlot(dow){
 function removeSlot(dow,t){slotState[dow]=(slotState[dow]||[]).filter(function(x){return x!==t;});renderDaySlots(dow);}
 function readSlots(){var out=[];WEEKDAYS.forEach(function(d){(slotState[d.d]||[]).forEach(function(t){out.push({day:d.d,time:t});});});return out;}
 
-// ── ADMIN: MODAL ───────────────────────
-function openAdd(){editId=null;document.getElementById('modal-ttl').textContent='Adicionar CSM';['m-name','m-email','m-ics'].forEach(function(i){document.getElementById(i).value='';});document.getElementById('m-proj').value='0';document.getElementById('modal-err').style.display='none';buildSlotGrid([]);showEl('csm-modal');}
+// ── ADMIN: MODAL CSM ─────────────────────────────────────────────────────────
+function openAdd(){editId=null;document.getElementById('modal-ttl').textContent='Adicionar CSM';['m-name','m-email','m-ics'].forEach(function(i){document.getElementById(i).value='';});document.getElementById('m-proj').value='0';document.getElementById('modal-err').style.display='none';buildSlotGrid(JSON.parse(JSON.stringify(DEFAULT_SLOTS)));showEl('csm-modal');}
 function openEdit(id){var c=cfg.csms.find(function(x){return x.id===id;});if(!c)return;editId=id;document.getElementById('modal-ttl').textContent='Editar – '+c.name;document.getElementById('m-name').value=c.name;document.getElementById('m-email').value=c.email;document.getElementById('m-ics').value=c.ics||'';document.getElementById('m-proj').value=c.projects||0;document.getElementById('modal-err').style.display='none';buildSlotGrid(c.slots||[]);showEl('csm-modal');}
 function closeModal(){hideEl('csm-modal');editId=null;}
 function bgClose(e){if(e.target.id==='csm-modal')closeModal();}
+
 async function saveCSM(){
   var name=document.getElementById('m-name').value.trim();
   var email=document.getElementById('m-email').value.trim();
@@ -403,7 +535,91 @@ async function saveCSM(){
   else{await loadCfg();renderTable();merr.textContent='⚠️ Erro ao salvar.';merr.style.display='block';}
 }
 
-// ── PUBLIC: CALENDAR ───────────────────
+// ── ADMIN: TIPOS DE REUNIÃO ───────────────────────────────────────────────────
+function renderTipos(){
+  var el=document.getElementById('mt-list');
+  el.innerHTML='';
+  if(!cfg.meetingTypes)cfg.meetingTypes=[];
+  cfg.meetingTypes.forEach(function(mt){
+    var row=document.createElement('div');
+    row.className='mt-row';
+    row.innerHTML=
+      '<div class="mt-fields">'
+        +'<div><label>Nome</label><input class="mt-name" data-id="'+mt.id+'" value="'+escH(mt.name)+'" placeholder="Ex: Treinamento"></div>'
+        +'<div style="text-align:center;padding-top:20px" title="Ativo"><input class="mt-active" data-id="'+mt.id+'" type="checkbox"'+(mt.active?' checked':'')+'></div>'
+        +'<div style="padding-top:20px"><button class="bsm bd" onclick="removeMt(\''+mt.id+'\')">Remover</button></div>'
+      +'</div>'
+      +'<div><label>Descrição <span style="font-weight:600;color:#9ca3af;text-transform:none;letter-spacing:0">(aparece na página para o cliente)</span></label>'
+        +'<textarea class="mt-desc" data-id="'+mt.id+'" rows="2" placeholder="Ex: Para novos usuários que precisam aprender a usar a plataforma." style="resize:vertical">'+escH(mt.desc||'')+'</textarea></div>'
+      +'<div style="margin-top:8px;font-size:11px;color:#9ca3af">🕐 1 hora · segue disponibilidade de cada CSM</div>';
+    el.appendChild(row);
+  });
+}
+
+function addMeetingType(){
+  if(!cfg.meetingTypes)cfg.meetingTypes=[];
+  cfg.meetingTypes.push({id:uid(),name:'Novo tipo',active:true,desc:''});
+  renderTipos();
+}
+
+function removeMt(id){
+  if(!confirm('Remover este tipo de reunião?'))return;
+  cfg.meetingTypes=cfg.meetingTypes.filter(function(x){return x.id!==id;});
+  renderTipos();
+}
+
+function readTiposFromDom(){
+  (cfg.meetingTypes||[]).forEach(function(mt){
+    var nameEl  =document.querySelector('.mt-name[data-id="'+mt.id+'"]');
+    var activeEl=document.querySelector('.mt-active[data-id="'+mt.id+'"]');
+    var descEl  =document.querySelector('.mt-desc[data-id="'+mt.id+'"]');
+    if(nameEl)  mt.name  =nameEl.value.trim()||mt.name;
+    if(activeEl)mt.active=activeEl.checked;
+    if(descEl)  mt.desc  =descEl.value.trim();
+  });
+}
+
+async function salvarTipos(){
+  readTiposFromDom();
+  var r=await saveCfg();
+  showMsg('msg-tipos',r.ok?'✅ Tipos salvos com sucesso!':'⚠️ Erro ao salvar.',r.ok);
+  if(r.ok) renderPublicTypes();
+}
+
+async function salvarConfig(){
+  if(!cfg.system)cfg.system={};
+  cfg.system.adminPw=document.getElementById('c-pw').value||ADMIN_PW;
+  var r=await saveCfg();
+  showMsg('msg-config',r.ok?'✅ Configurações salvas!':'⚠️ Erro ao salvar.',r.ok);
+}
+
+// ── PÚBLICO: TIPOS ────────────────────────────────────────────────────────────
+function renderPublicTypes(){
+  var list=document.getElementById('type-list');
+  list.innerHTML='';
+  var active=(cfg.meetingTypes||[]).filter(function(mt){return mt.active;});
+  if(!active.length){showEl('no-types');return;}
+  hideEl('no-types');
+  active.forEach(function(mt){
+    var el=document.createElement('div');
+    el.className='tc';
+    el.dataset.id=mt.id;
+    el.innerHTML='<div style="flex:1">'
+      +'<div style="display:flex;align-items:center;gap:8px"><span class="tn">'+escH(mt.name)+'</span><span class="td">🕐 1h</span></div>'
+      +(mt.desc?'<div class="tc-desc">'+escH(mt.desc)+'</div>':'')
+      +'</div>';
+    el.addEventListener('click',function(){
+      document.querySelectorAll('#type-list .tc').forEach(function(x){x.classList.remove('sel');});
+      el.classList.add('sel');
+      selMotivoName=mt.name;
+      selMotivo=mt.name;
+      document.getElementById('btn0').disabled=false;
+    });
+    list.appendChild(el);
+  });
+}
+
+// ── PÚBLICO: CALENDÁRIO ───────────────────────────────────────────────────────
 async function loadAvailability(){
   document.getElementById('cal-wrap').innerHTML='<div class="loading">⏳ Verificando disponibilidade...</div>';
   hideEl('tw');selDate='';selTime='';document.getElementById('btn1').disabled=true;
@@ -455,7 +671,7 @@ function pickDate(iso){
   });
 }
 
-// ── PUBLIC: CONFIRM ────────────────────
+// ── PÚBLICO: CONFIRMAR ────────────────────────────────────────────────────────
 async function confirmar(){
   if(_submitting)return;
   var s=document.getElementById('fi-school').value.trim();
@@ -501,7 +717,7 @@ async function confirmar(){
       ?"<div class='meet-box'><div class='meet-ttl'>🎥 Link da reunião</div><div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span><button class='copy-btn' id='copy-btn'>Copiar</button></div></div>"
       :"<div style='margin-top:10px;font-size:12px;color:#6b7280'>O link do Meet será enviado por e-mail.</div>";
     document.getElementById('sd').innerHTML=
-      '<div style="margin-bottom:4px"><strong>Reunião de '+selMotivo+'</strong> com <strong>'+csmNm+'</strong></div>'
+      '<div style="margin-bottom:4px"><strong>'+escH(selMotivo)+'</strong> com <strong>'+escH(csmNm)+'</strong></div>'
       +'<div style="color:#6b7280">📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+'</div>'
       +'<div style="color:#6b7280">🕐 '+selTime+' – '+addMin(selTime,DURATION)+' <strong style="color:#854d0e">· Horário de Brasília (GMT-3)</strong></div>'
       +meetEl;
@@ -513,18 +729,10 @@ async function confirmar(){
   }
 }
 
-// ── INIT ───────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async function(){
   await loadCfg();
-
-  // Motivo
-  document.querySelectorAll('#motivo-list .tc').forEach(function(el){
-    el.addEventListener('click',function(){
-      document.querySelectorAll('#motivo-list .tc').forEach(function(x){x.classList.remove('sel');});
-      el.classList.add('sel');selMotivo=el.dataset.motivo;
-      document.getElementById('btn0').disabled=false;
-    });
-  });
+  renderPublicTypes();
 
   document.getElementById('btn0').addEventListener('click',function(){
     if(this.disabled)return;
@@ -532,13 +740,12 @@ document.addEventListener('DOMContentLoaded',async function(){
     cy=new Date().getFullYear();cm=new Date().getMonth();
     loadAvailability();
   });
-
   document.getElementById('back1').addEventListener('click',function(){showPub('s0');selDate='';selTime='';});
   document.getElementById('btn1').addEventListener('click',function(){
     if(this.disabled)return;
     showPub('s2');
     var dt=new Date(selDate+'T12:00:00');
-    document.getElementById('ibar').textContent='📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+' às '+selTime+' · Reunião de '+selMotivo+' (Horário de Brasília)';
+    document.getElementById('ibar').textContent='📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+' às '+selTime+' · '+escH(selMotivo)+' (Horário de Brasília)';
   });
   document.getElementById('btn2').addEventListener('click',confirmar);
   document.getElementById('back2').addEventListener('click',function(){showPub('s1');});
