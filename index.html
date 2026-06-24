@@ -625,8 +625,9 @@ async function loadAvailability(){
   hideEl('tw');selDate='';selTime='';document.getElementById('btn1').disabled=true;
   availDays={};
   try{
-    var sorted=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
-    var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({csms:sorted,duration:DURATION})});
+    // Envia apenas os 3 CSMs com menor número de projetos
+    var top3=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;}).slice(0,3);
+    var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({csms:top3,duration:DURATION})});
     if(r.ok){
       var d=await r.json();
       if(d.days){d.days.forEach(function(x){availDays[x.date]=(x.slots||[]).map(function(s){return s.time;});});}
@@ -685,13 +686,13 @@ async function confirmar(){
   _submitting=true;
   var btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Aguarde...';
 
-  // Envia lista de CSMs ordenada por projetos — n8n escolhe o primeiro livre
-  var sortedCsms=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;});
+  // Envia apenas os 3 CSMs com menor projetos — n8n escolhe o primeiro livre
+  var top3Csms=[...cfg.csms].sort(function(a,b){return a.projects-b.projects;}).slice(0,3);
 
   var payload={
     date:selDate, time:selTime, motivo:selMotivo, duration:DURATION,
     school:s, contact:c, email:e, phone:p, guests:g,
-    csms:sortedCsms.map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects,slots:x.slots};})
+    csms:top3Csms.map(function(x){return{id:x.id,name:x.name,email:x.email,ics:x.ics,projects:x.projects,slots:x.slots};})
   };
 
   try{
@@ -703,7 +704,7 @@ async function confirmar(){
       er.style.display='block';_submitting=false;btn.disabled=false;btn.textContent='Confirmar agendamento';return;
     }
 
-    // Incrementa projeto do CSM atribuído
+    // Incrementa projeto do CSM atribuído (busca no array completo, não só no top-3)
     if(resp.csmId){
       var idx=cfg.csms.findIndex(function(x){return x.id===resp.csmId;});
       if(idx>=0){cfg.csms[idx].projects++;await saveCfg();}
