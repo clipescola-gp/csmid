@@ -199,14 +199,17 @@ async function loadCfg(){
     var r=await fetch(WC_GET,{cache:'no-store'});
     if(r.ok){
       var d=await r.json();
-      if(d&&Array.isArray(d.csms)){
-        cfg=d;
-        if(!cfg.meetingTypes||!cfg.meetingTypes.length) cfg.meetingTypes=DEFAULT_CONFIG.meetingTypes;
+      // FIX BUG 1: só usa config do n8n se vier com CSMs cadastrados.
+      // Se d.csms for [] (config nunca salva no admin), usa DEFAULT_CONFIG.
+      if(d && Array.isArray(d.csms) && d.csms.length > 0){
+        cfg.csms = d.csms;
+        // meetingTypes não é salvo no n8n; mantém o padrão local
+        if(d.meetingTypes && d.meetingTypes.length) cfg.meetingTypes = d.meetingTypes;
         return;
       }
     }
   }catch(e){console.warn('Config n8n indisponível, usando padrão.');}
-  cfg=JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  cfg = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 }
 
 // ── Step 0: Tipos de reunião ──────────────────────────────────────────────────
@@ -240,15 +243,35 @@ async function loadAvailability(){
   hideEl('tw');selDate='';selTime='';document.getElementById('btn1').disabled=true;
   availDays={};
   try{
-    // Envia todos os CSMs ativos — n8n escolhe os 3 com menos projetos via Runrun.it
+    // Envia todos os CSMs ativos com o campo projects para o backend
     var activeCsms=cfg.csms.filter(function(c){return c.active!==false;})
-      .map(function(c){return {id:c.id,name:c.name,email:c.email,slots:c.slots};});
+      .map(function(c){return {id:c.id,name:c.name,email:c.email,slots:c.slots,projects:c.projects||0};});
     var r=await fetch(WV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({csms:activeCsms,duration:DURATION})});
     if(r.ok){
       var d=await r.json();
-      if(d.days){d.days.forEach(function(x){availDays[x.date]=(x.slots||[]).map(function(s){return s.time;});});}
+      if(d.days && d.days.length){
+        d.days.forEach(function(x){availDays[x.date]=(x.slots||[]).map(function(s){return s.time;});});
+      } else {
+        // FIX BUG 3: feedback visual quando não há datas disponíveis
+        document.getElementById('cal-wrap').innerHTML=
+          '<div style="text-align:center;padding:24px;color:#6b7280;font-size:14px;line-height:1.7">'+
+          '📅 Nenhuma data disponível nas próximas semanas.<br>'+
+          '<span style="font-size:12px">Entre em contato com a equipe CS para agendar.</span></div>';
+        return;
+      }
+    } else {
+      document.getElementById('cal-wrap').innerHTML=
+        '<div style="text-align:center;padding:24px;color:#dc2626;font-size:13px">'+
+        '⚠️ Erro ao carregar disponibilidade. Tente novamente.</div>';
+      return;
     }
-  }catch(e){console.error('Erro ao verificar disponibilidade:',e);}
+  }catch(e){
+    console.error('Erro ao verificar disponibilidade:',e);
+    document.getElementById('cal-wrap').innerHTML=
+      '<div style="text-align:center;padding:24px;color:#dc2626;font-size:13px">'+
+      '⚠️ Erro de conexão. Verifique sua internet e tente novamente.</div>';
+    return;
+  }
   renderCal();
 }
 
@@ -276,7 +299,7 @@ function pickDate(iso){
   renderCal();
   var times=availDays[iso]||[];
   showEl('tw');
-  var dt=new Date(iso+'T12:00:00');
+  var dt=new Date(iso+'T12:00:00-03:00'); // FIX BUG 4: timezone BRT explícito
   document.getElementById('tl').textContent='Horários – '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()];
   var tc=document.getElementById('times');tc.innerHTML='';
   if(!times.length){tc.innerHTML='<span style="color:#dc2626;font-size:13px">Nenhum horário. Escolha outra data.</span>';return;}
@@ -302,9 +325,9 @@ async function confirmar(){
   _submitting=true;
   var btn=document.getElementById('btn2');btn.disabled=true;btn.textContent='Aguarde...';
 
-  // Envia todos os CSMs ativos — n8n escolhe o melhor via Runrun.it
+  // Envia todos os CSMs ativos com projects — n8n escolhe o melhor via Runrun.it
   var activeCsms=cfg.csms.filter(function(c){return c.active!==false;})
-    .map(function(x){return {id:x.id,name:x.name,email:x.email,slots:x.slots};});
+    .map(function(x){return {id:x.id,name:x.name,email:x.email,slots:x.slots,projects:x.projects||0};});
 
   var payload={
     date:selDate, time:selTime, motivo:selMotivo, duration:DURATION,
@@ -324,7 +347,7 @@ async function confirmar(){
     showPub('succ');
     var csmNm=resp.csm||'seu CSM';
     var ml=resp.meetLink||null;
-    var dt=new Date(selDate+'T12:00:00');
+    var dt=new Date(selDate+'T12:00:00-03:00'); // FIX BUG 4: timezone BRT explícito
     var meetEl=ml
       ?"<div class='meet-box'><div class='meet-ttl'>🎥 Link da reunião</div><div class='meet-row'><span class='meet-link' id='meet-url'>"+ml+"</span><button class='copy-btn' id='copy-btn'>Copiar</button></div></div>"
       :"<div style='margin-top:10px;font-size:12px;color:#6b7280'>O link do Meet será enviado por e-mail.</div>";
@@ -356,13 +379,18 @@ document.addEventListener('DOMContentLoaded',async function(){
   document.getElementById('btn1').addEventListener('click',function(){
     if(this.disabled)return;
     showPub('s2');
-    var dt=new Date(selDate+'T12:00:00');
+    var dt=new Date(selDate+'T12:00:00-03:00'); // FIX BUG 4: timezone BRT explícito
     document.getElementById('ibar').textContent='📅 '+DL[dt.getDay()]+', '+dt.getDate()+' de '+MONTHS[dt.getMonth()]+' de '+cy+' às '+selTime+' · '+escH(selMotivo)+' (Horário de Brasília)';
   });
   document.getElementById('btn2').addEventListener('click',confirmar);
   document.getElementById('back2').addEventListener('click',function(){showPub('s1');});
-  document.getElementById('prev-m').addEventListener('click',function(){cm--;if(cm<0){cm=11;cy--;}availDays={};loadAvailability();});
-  document.getElementById('next-m').addEventListener('click',function(){cm++;if(cm>11){cm=0;cy++;}availDays={};loadAvailability();});
+  // FIX BUG 5: navegação de mês apenas re-renderiza o grid, sem nova chamada à API
+  document.getElementById('prev-m').addEventListener('click',function(){
+    cm--; if(cm<0){cm=11;cy--;} renderCal();
+  });
+  document.getElementById('next-m').addEventListener('click',function(){
+    cm++; if(cm>11){cm=0;cy++;} renderCal();
+  });
   document.getElementById('succ-btn').addEventListener('click',function(){location.reload();});
 });
 </script>
